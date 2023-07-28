@@ -5,6 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ButtonType } from "./components/button/index";
+export { ButtonType } from "./components/button/index";
 export namespace Components {
     interface MyComponent {
         /**
@@ -20,6 +22,20 @@ export namespace Components {
          */
         "middle": string;
     }
+    interface WcButton {
+        /**
+          * 是否为暗黑模式，默认为 `false`
+         */
+        "dark": boolean;
+        /**
+          * 主题色阶号，可选值为 `1` `2` `3` `4` `5` `6` `7` `8` `9` `10`
+         */
+        "level": number;
+        /**
+          * 按钮类型， 可选值为 `primary` `success` `warning` `danger` `info` `text`
+         */
+        "type": ButtonType;
+    }
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -28,8 +44,15 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLWcButtonElement extends Components.WcButton, HTMLStencilElement {
+    }
+    var HTMLWcButtonElement: {
+        prototype: HTMLWcButtonElement;
+        new (): HTMLWcButtonElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "wc-button": HTMLWcButtonElement;
     }
 }
 declare namespace LocalJSX {
@@ -47,8 +70,23 @@ declare namespace LocalJSX {
          */
         "middle"?: string;
     }
+    interface WcButton {
+        /**
+          * 是否为暗黑模式，默认为 `false`
+         */
+        "dark"?: boolean;
+        /**
+          * 主题色阶号，可选值为 `1` `2` `3` `4` `5` `6` `7` `8` `9` `10`
+         */
+        "level"?: number;
+        /**
+          * 按钮类型， 可选值为 `primary` `success` `warning` `danger` `info` `text`
+         */
+        "type"?: ButtonType;
+    }
     interface IntrinsicElements {
         "my-component": MyComponent;
+        "wc-button": WcButton;
     }
 }
 export { LocalJSX as JSX };
@@ -56,6 +94,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "wc-button": LocalJSX.WcButton & JSXBase.HTMLAttributes<HTMLWcButtonElement>;
         }
     }
 }

@@ -4,6 +4,7 @@
     "allowUnreachableCode": false,
     "declaration": false,
     "experimentalDecorators": true,
+    "rootDir": "src",
     "lib": [
       "dom",
       "es2017"

@@ -1,5 +1,5 @@
 {
-  "name": "wc-ui",
+  "name": "@wc/components",
   "version": "0.0.1",
   "description": "Stencil Component Starter",
   "main": "dist/index.cjs.js",
@@ -19,16 +19,18 @@
     "loader/"
   ],
   "scripts": {
-    "build": "stencil build --docs",
+    "build": "rm -rf www && stencil build --docs",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "generate": "stencil generate",
+    "dev:h5": "http-server www -c-1 -o -a localhost -p 3334"
   },
   "dependencies": {
     "@stencil/core": "^4.0.0"
   },
   "devDependencies": {
+    "@kviewui/color-builder": "^1.0.5",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.11",
     "jest": "^27.5.1",
