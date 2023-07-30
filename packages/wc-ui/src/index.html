@@ -1,15 +1,71 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>Stencil Component Starter</title>
 
-    <script type="module" src="/build/wc-ui.esm.js"></script>
-    <script nomodule src="/build/wc-ui.js"></script>
-  </head>
-  <body>
-    <!-- <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component> -->
-    <wc-button></wc-button>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+  <title>Stencil Component Starter</title>
+
+  <script type="module" src="/build/wc-ui.esm.js"></script>
+  <script nomodule src="/build/wc-ui.js"></script>
+  <style>
+    /* @import url('./common/css/dist/index.css'); */
+    .dark {
+      background-color: #333;
+    }
+    .margin {
+      margin: 10px;
+    }
+  </style>
+</head>
+
+<body class="dark1">
+  <div class="margin">
+    <h2>按钮主题风格</h2>
+    <wc-space size="[12, 18]">
+      <wc-space-item>
+        <wc-button id="wc-button1" dark1></wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="primary" dark1></wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="danger" dark1></wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="warning" dark1></wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="success" dark1></wc-button>
+      </wc-space-item>
+    </wc-space>
+  </div>
+  <div class="margin">
+    <h2>按钮变体</h2>
+    <wc-space size="[12, 18]">
+      <wc-space-item>
+        <wc-button id="wc-button1" dark1 variant="outline"></wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="primary" dark1 variant="outline"></wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="danger" dark1 variant="dashed"></wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="warning" dark1 variant="text"></wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="success" dark1 variant="contained"></wc-button>
+      </wc-space-item>
+    </wc-space>
+  </div>
+</body>
+
 </html>
+
+<script lang="ts">
+document.getElementById('wc-button1').addEventListener('click', function(event) {
+  console.log('Received the custom clickEvent: ');
+});
+</script>

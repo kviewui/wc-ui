@@ -1,4 +1,4 @@
 /**
  * 主题类型
  */
-export type ThemeType = 'primary' | 'success' | 'warning' | 'danger' | 'info';
+export type ThemeType = 'default' | 'primary' | 'success' | 'warning' | 'danger';

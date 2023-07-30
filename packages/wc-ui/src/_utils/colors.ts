@@ -1,5 +1,6 @@
 import { colorBuilder } from '@kviewui/color-builder';
 import type { ThemeType } from '../types';
+import config from '../config';
 
 /**
  * 判断是否为预设主题色
@@ -29,8 +30,8 @@ export function isPresetColor(color: string) {
  * ```
  */
 export function getThemeColor(theme: ThemeType) {
-    console.log('theme', colorBuilder.getPresetColors());
-    if (['primary', 'success'].includes(theme)) {
+    // console.log('theme', colorBuilder.getPresetColors());
+    if (['success'].includes(theme)) {
         return colorBuilder.generate('#00BC79', {
             index: 6
         });
@@ -48,8 +49,14 @@ export function getThemeColor(theme: ThemeType) {
         });
     }
 
-    if (['info'].includes(theme)) {
+    if (['primary'].includes(theme)) {
         return colorBuilder.generate('#165DFF', {
+            index: 6
+        });
+    }
+
+    if (['default'].includes(theme)) {
+        return colorBuilder.generate('#f2f3f5', {
             index: 6
         });
     }
@@ -81,4 +88,28 @@ export function getPresetColor(color: string, level: number = 5, dark: boolean =
         console.warn(`[getPresetColor] color: ${color} is not a preset color`);
         return color;
     }
+}
+
+/**
+ * 获取点击态颜色
+ * @param color 颜色值
+ * @param level 色阶号
+ * @param dark 是否为暗色
+ */
+export function getActiveColor(color: string, level: number = 6, dark: boolean = false) {
+    return colorBuilder.generate(color, {
+        index: dark ? (level + 1) : (level + 2),
+        dark
+    });
+}
+
+/**
+ * 获取悬停态颜色
+ */
+export function getHoverColor(color: string, dark: boolean = false, level: number = 4) {
+    console.log(color, 'color');
+    return colorBuilder.generate(color, {
+        index: level,
+        dark
+    });
 }

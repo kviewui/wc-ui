@@ -5,8 +5,10 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ButtonType } from "./components/button/index";
-export { ButtonType } from "./components/button/index";
+import { ThemeType } from "./types";
+import { SpaceSize } from "./components/space/index";
+export { ThemeType } from "./types";
+export { SpaceSize } from "./components/space/index";
 export namespace Components {
     interface MyComponent {
         /**
@@ -32,10 +34,54 @@ export namespace Components {
          */
         "level": number;
         /**
-          * 按钮类型， 可选值为 `primary` `success` `warning` `danger` `info` `text`
+          * 按钮形状，可选值为 `rectangle` `square` `round` `circle`，默认为 `rectangle`
          */
-        "type": ButtonType;
+        "shape": 'rectangle' | 'square' | 'round' | 'circle';
+        /**
+          * 按钮文本，也可通过默认插槽设置文本
+         */
+        "text": string;
+        /**
+          * 按钮风格，可选值为 `default` `primary` `success` `warning` `danger`，默认为 `default`
+         */
+        "theme": ThemeType;
+        /**
+          * 按钮类型，可选值为 `submit` `reset` `button`，默认为 `button`
+         */
+        "type": 'submit' | 'reset' | 'button';
+        /**
+          * 按钮变体，可选值为 `base` `outline` `dashed` `text` `contained`，默认为 `base`
+         */
+        "variant": 'base' | 'outline' | 'dashed' | 'text' | 'contained';
+        /**
+          * 按钮是否可见，默认为 `true`
+         */
+        "visible": boolean;
     }
+    interface WcSpace {
+        /**
+          * 对齐方式，可选值为 `start` `end` `center` `baseline` `stretch`，默认为 `start`
+         */
+        "align": 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+        /**
+          * 间距方向，可选值为 `horizontal` `vertical`，默认为 `horizontal`
+         */
+        "direction": 'horizontal' | 'vertical';
+        /**
+          * 间距大小，可选值为 `mini` `small` `medium` `large` 或者具体的数值，默认为 `small`
+         */
+        "size": SpaceSize | SpaceSize[];
+        /**
+          * 是否为环绕排列，默认为 `false`
+         */
+        "wrap": boolean;
+    }
+    interface WcSpaceItem {
+    }
+}
+export interface WcButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLWcButtonElement;
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -50,9 +96,23 @@ declare global {
         prototype: HTMLWcButtonElement;
         new (): HTMLWcButtonElement;
     };
+    interface HTMLWcSpaceElement extends Components.WcSpace, HTMLStencilElement {
+    }
+    var HTMLWcSpaceElement: {
+        prototype: HTMLWcSpaceElement;
+        new (): HTMLWcSpaceElement;
+    };
+    interface HTMLWcSpaceItemElement extends Components.WcSpaceItem, HTMLStencilElement {
+    }
+    var HTMLWcSpaceItemElement: {
+        prototype: HTMLWcSpaceItemElement;
+        new (): HTMLWcSpaceItemElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
         "wc-button": HTMLWcButtonElement;
+        "wc-space": HTMLWcSpaceElement;
+        "wc-space-item": HTMLWcSpaceItemElement;
     }
 }
 declare namespace LocalJSX {
@@ -80,13 +140,59 @@ declare namespace LocalJSX {
          */
         "level"?: number;
         /**
-          * 按钮类型， 可选值为 `primary` `success` `warning` `danger` `info` `text`
+          * 点击事件
          */
-        "type"?: ButtonType;
+        "onClick"?: (event: WcButtonCustomEvent<MouseEvent>) => void;
+        /**
+          * 按钮形状，可选值为 `rectangle` `square` `round` `circle`，默认为 `rectangle`
+         */
+        "shape"?: 'rectangle' | 'square' | 'round' | 'circle';
+        /**
+          * 按钮文本，也可通过默认插槽设置文本
+         */
+        "text"?: string;
+        /**
+          * 按钮风格，可选值为 `default` `primary` `success` `warning` `danger`，默认为 `default`
+         */
+        "theme"?: ThemeType;
+        /**
+          * 按钮类型，可选值为 `submit` `reset` `button`，默认为 `button`
+         */
+        "type"?: 'submit' | 'reset' | 'button';
+        /**
+          * 按钮变体，可选值为 `base` `outline` `dashed` `text` `contained`，默认为 `base`
+         */
+        "variant"?: 'base' | 'outline' | 'dashed' | 'text' | 'contained';
+        /**
+          * 按钮是否可见，默认为 `true`
+         */
+        "visible"?: boolean;
+    }
+    interface WcSpace {
+        /**
+          * 对齐方式，可选值为 `start` `end` `center` `baseline` `stretch`，默认为 `start`
+         */
+        "align"?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+        /**
+          * 间距方向，可选值为 `horizontal` `vertical`，默认为 `horizontal`
+         */
+        "direction"?: 'horizontal' | 'vertical';
+        /**
+          * 间距大小，可选值为 `mini` `small` `medium` `large` 或者具体的数值，默认为 `small`
+         */
+        "size"?: SpaceSize | SpaceSize[];
+        /**
+          * 是否为环绕排列，默认为 `false`
+         */
+        "wrap"?: boolean;
+    }
+    interface WcSpaceItem {
     }
     interface IntrinsicElements {
         "my-component": MyComponent;
         "wc-button": WcButton;
+        "wc-space": WcSpace;
+        "wc-space-item": WcSpaceItem;
     }
 }
 export { LocalJSX as JSX };
@@ -95,6 +201,8 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "wc-button": LocalJSX.WcButton & JSXBase.HTMLAttributes<HTMLWcButtonElement>;
+            "wc-space": LocalJSX.WcSpace & JSXBase.HTMLAttributes<HTMLWcSpaceElement>;
+            "wc-space-item": LocalJSX.WcSpaceItem & JSXBase.HTMLAttributes<HTMLWcSpaceItemElement>;
         }
     }
 }
