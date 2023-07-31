@@ -1,4 +1,4 @@
-import { Component, h, Element } from '@stencil/core';
+import { Component, h, Element, Fragment } from '@stencil/core';
 
 @Component({
     tag: 'wc-space-item',
@@ -13,9 +13,9 @@ export class WcSpaceItem {
 
     render() {
         return (
-            <span>
+            <Fragment>
                 <slot></slot>
-            </span>
+            </Fragment>
         );
     }
 }

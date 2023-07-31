@@ -1,6 +1,5 @@
-import { Component, Prop, State, h, Event, EventEmitter } from '@stencil/core';
+import { Component, Prop, State, h, Event, EventEmitter, Element, Fragment } from '@stencil/core';
 import { getPresetColor, getThemeColor, getActiveColor, getHoverColor } from '../../_utils/colors';
-import config from '../../config';
 import type { ThemeType } from '../../types';
 import { colorBuilder } from '@kviewui/color-builder';
 
@@ -49,12 +48,43 @@ export class WcButton {
      */
     @Prop() visible: boolean = true;
 
+    /**
+     * 按钮是否禁用，默认为 `false`
+     */
+    @Prop() disabled: boolean = false;
+
+    /**
+     * 按钮是否加载中，默认为 `false`
+     */
+    @Prop() loading: boolean = false;
+
+    /**
+     * 按钮是否为块级元素，默认为 `false`
+     */
+    @Prop() block: boolean = false;
+
+    /**
+     * 矩形圆角大小，单位为 `px`，默认为 `4px`
+     */
+    @Prop() radius: number = 4;
+
+    /**
+     * 按钮尺寸，可选值为 `mini` `small` `medium` `large` 或者具体的数值，默认为 `medium`
+     */
+    @Prop() size: 'mini' | 'small' | 'medium' | 'large' | number = 'medium';
+
     @State() backgroundColor: string = getPresetColor(getThemeColor(this.theme), this.level, this.dark);
     @State() color: string = '#fff';
     @State() boxShadow: string = this.variant === 'contained' ? '0 5px 10px 0 rgba(0, 0, 0, 0.1)' : '';
     @State() borderColor: string = '';
     @State() borderWidth: string = '0px';
     @State() borderStyle: string = 'solid';
+    @State() borderRadius: string = '';
+    @State() padding: string = '0 18px';
+    @State() width: string = '';
+    @State() height: string = '38px';
+    @State() textAlign: string = 'center';
+    @State() fontSize: string = '14px';
 
     /**
      * 点击事件
@@ -67,10 +97,48 @@ export class WcButton {
     }) click: EventEmitter<MouseEvent>;
     
     handleClick = (e: MouseEvent) => {
+        if (this.disabled) {
+            e.preventDefault();
+            return;
+        }
         this.click.emit(e);
     }
 
-    buttonRef!: HTMLButtonElement;
+    @Element() buttonRef!: HTMLButtonElement;
+
+    /**
+     * 获取按钮尺寸
+     */
+    getSize = () => {
+        if (typeof this.size === 'number') {
+            return `${this.size}px`;
+        }
+        switch (this.size) {
+            case 'mini':
+                return '24px';
+            case 'small':
+                return '30px';
+            case 'medium':
+                return '38px';
+            case 'large':
+                return '46px';
+            default:
+                return '38px';
+        }
+    }
+
+    /**
+     * 获取按钮圆角大小
+     */
+    getRadius = () => {
+        if (this.shape === 'round') {
+            return '100px';
+        }
+        if (this.shape === 'circle') {
+            return '50%';
+        }
+        return `${this.radius}px`;
+    }
 
     /**
      * 根据按钮变体设置按钮样式
@@ -122,6 +190,84 @@ export class WcButton {
     }
 
     /**
+     * 根据按钮形状设置按钮样式
+     */
+    setShapeStyle = () => {
+        this.borderRadius = this.getRadius();
+        switch (this.shape) {
+            case 'rectangle':
+                // this.padding = '0 18px';
+                break;
+            case 'square':
+                this.padding = '';
+                this.width = this.height = this.getSize();
+                break;
+            case 'round':
+                // this.padding = '0 18px';
+                break;
+            case 'circle':
+                this.padding = '';
+                this.width = this.height = this.getSize();
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 根据按钮尺寸设置文字大小
+     */
+    getFontSize = () => {
+        if (typeof this.size === 'number') {
+            return `${this.size / 2}px`;
+        }
+        switch (this.size) {
+            case 'mini':
+                return '12px';
+            case 'small':
+                return '14px';
+            case 'medium':
+                return '16px';
+            case 'large':
+                return '18px';
+            default:
+                return '16px';
+        }
+    }
+
+    /**
+     * 根据按钮尺寸设置按钮样式以及字体大小
+     */
+    setSizeStyle = () => {
+        this.fontSize = this.getFontSize();
+        this.height = this.getSize();
+        switch (this.size) {
+            case 'mini':
+                this.padding = '0 8px';
+                break;
+            case 'small':
+                this.padding = '0 12px';
+                break;
+            case 'medium':
+                this.padding = '0 18px';
+                break;
+            case 'large':
+                this.padding = '0 24px';
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 判断是否为块状按钮，如果是则设置按钮宽度为 100%
+     */
+    setBlockStyle = () => {
+        if (this.block) {
+            this.width = '100%';
+        }
+    }
+
+    /**
      * 根据按钮变体设置按钮悬浮样式
      */
     setHoverStyle = () => {
@@ -152,11 +298,11 @@ export class WcButton {
     }
 
     conponentDidLoad() {
-        console.log('wc-button conponentDidLoad');
+        // console.log('wc-button conponentDidLoad');
     }
 
     componentWillLoad() {
-        console.log('wc-button componentWillLoad');
+        // console.log('wc-button componentWillLoad');
         // 设置默认按钮风格
         if (this.theme === 'default') {
             this.color = this.dark ? '#fff' : '#333';
@@ -164,11 +310,20 @@ export class WcButton {
         }
 
         this.setVariantStyle();
+
+        this.setBlockStyle();
+
+        this.setSizeStyle();
+
+        this.setShapeStyle();
+
+        this.setBlockStyle();
     }
 
     connectedCallback() {
+        // console.log(this.buttonRef);
         
-        console.log('wc-button connectedCallback');
+        // console.log('wc-button connectedCallback');
         // this.getBaseStyle();
         // console.log('wc-button connectedCallback');
         // console.log(colorBuilder.generate('red', {list: true}));
@@ -192,6 +347,10 @@ export class WcButton {
      * 鼠标进入
      */
     onMouseEnter = () => {
+        // 判断按钮是否禁用
+        if (this.disabled) {
+            return;
+        }
         if (this.theme === 'default' && this.variant === 'base') {
             this.backgroundColor = this.getDefaultThemeColor(3);
             return;
@@ -207,6 +366,10 @@ export class WcButton {
      * 鼠标离开
      */
     onMouseLeave = () => {
+        // 判断按钮是否禁用
+        if (this.disabled) {
+            return;
+        }
         if (this.theme === 'default' && this.variant === 'base') {
             this.backgroundColor = this.getDefaultThemeColor(2);
             return;
@@ -222,6 +385,10 @@ export class WcButton {
      * 鼠标按下
      */
     onMouseDown = () => {
+        // 判断按钮是否禁用
+        if (this.disabled) {
+            return;
+        }
         if (this.theme === 'default' && this.variant === 'base') {
             this.backgroundColor = this.getDefaultThemeColor(4);
             return;
@@ -237,6 +404,10 @@ export class WcButton {
      * 鼠标抬起
      */
     onMouseUp = () => {
+        // 判断按钮是否禁用
+        if (this.disabled) {
+            return;
+        }
         if (this.theme === 'default' && this.variant === 'base') {
             this.backgroundColor = this.getDefaultThemeColor(2);
             return;
@@ -270,22 +441,28 @@ export class WcButton {
             borderWidth: this.borderWidth,
             color: this.color,
             backgroundColor: this.backgroundColor,
-            cursor: 'pointer',
+            cursor: this.disabled ? 'not-allowed' : 'pointer',
             userSelect: 'none',
             borderColor: this.borderColor,
-            padding: '0 18px',
-            height: '38px',
-            fontSize: '16px',
-            borderRadius: '38px',
+            padding: this.padding,
+            height: this.height,
+            fontSize: this.fontSize,
+            borderRadius: this.borderRadius,
             boxShadow: this.boxShadow,
-            borderStyle: this.borderStyle
+            borderStyle: this.borderStyle,
+            opacity: this.disabled ? 0.5 : 1,
+            transition: 'all 0.3s ease-in-out',
+            display: this.block ? 'block' : 'inline-block',
+            width: this.width,
+            textAlign: this.textAlign,
         }
     }
 
     render() {
         if (this.visible) {
-            return (
-                <button style={this.getBaseStyle()}
+            return (<Fragment>
+                <button style={this.getBaseStyle() as any}
+                    disabled={this.disabled}
                     type={this.type}
                     onClick={this.handleClick}
                     onTouchStart={this.onTouchStart}
@@ -298,7 +475,7 @@ export class WcButton {
                         {this.text}
                     </slot>
                 </button>
-            );
+            </Fragment>);
         }
     }
 }

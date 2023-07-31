@@ -26,17 +26,37 @@ export namespace Components {
     }
     interface WcButton {
         /**
+          * 按钮是否为块级元素，默认为 `false`
+         */
+        "block": boolean;
+        /**
           * 是否为暗黑模式，默认为 `false`
          */
         "dark": boolean;
+        /**
+          * 按钮是否禁用，默认为 `false`
+         */
+        "disabled": boolean;
         /**
           * 主题色阶号，可选值为 `1` `2` `3` `4` `5` `6` `7` `8` `9` `10`
          */
         "level": number;
         /**
+          * 按钮是否加载中，默认为 `false`
+         */
+        "loading": boolean;
+        /**
+          * 矩形圆角大小，单位为 `px`，默认为 `4px`
+         */
+        "radius": number;
+        /**
           * 按钮形状，可选值为 `rectangle` `square` `round` `circle`，默认为 `rectangle`
          */
         "shape": 'rectangle' | 'square' | 'round' | 'circle';
+        /**
+          * 按钮尺寸，可选值为 `mini` `small` `medium` `large` 或者具体的数值，默认为 `medium`
+         */
+        "size": 'mini' | 'small' | 'medium' | 'large' | number;
         /**
           * 按钮文本，也可通过默认插槽设置文本
          */
@@ -63,6 +83,20 @@ export namespace Components {
           * 对齐方式，可选值为 `start` `end` `center` `baseline` `stretch`，默认为 `start`
          */
         "align": 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+        /**
+          * 子元素是否为块级元素
+         */
+        "block": boolean;
+        /**
+          * 节点类名
+         */
+        "customClass": string | string[];
+        /**
+          * 节点样式
+         */
+        "customStyle": {
+        [key: string]: string
+    } | string;
         /**
           * 间距方向，可选值为 `horizontal` `vertical`，默认为 `horizontal`
          */
@@ -132,21 +166,41 @@ declare namespace LocalJSX {
     }
     interface WcButton {
         /**
+          * 按钮是否为块级元素，默认为 `false`
+         */
+        "block"?: boolean;
+        /**
           * 是否为暗黑模式，默认为 `false`
          */
         "dark"?: boolean;
+        /**
+          * 按钮是否禁用，默认为 `false`
+         */
+        "disabled"?: boolean;
         /**
           * 主题色阶号，可选值为 `1` `2` `3` `4` `5` `6` `7` `8` `9` `10`
          */
         "level"?: number;
         /**
+          * 按钮是否加载中，默认为 `false`
+         */
+        "loading"?: boolean;
+        /**
           * 点击事件
          */
         "onClick"?: (event: WcButtonCustomEvent<MouseEvent>) => void;
         /**
+          * 矩形圆角大小，单位为 `px`，默认为 `4px`
+         */
+        "radius"?: number;
+        /**
           * 按钮形状，可选值为 `rectangle` `square` `round` `circle`，默认为 `rectangle`
          */
         "shape"?: 'rectangle' | 'square' | 'round' | 'circle';
+        /**
+          * 按钮尺寸，可选值为 `mini` `small` `medium` `large` 或者具体的数值，默认为 `medium`
+         */
+        "size"?: 'mini' | 'small' | 'medium' | 'large' | number;
         /**
           * 按钮文本，也可通过默认插槽设置文本
          */
@@ -173,6 +227,20 @@ declare namespace LocalJSX {
           * 对齐方式，可选值为 `start` `end` `center` `baseline` `stretch`，默认为 `start`
          */
         "align"?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+        /**
+          * 子元素是否为块级元素
+         */
+        "block"?: boolean;
+        /**
+          * 节点类名
+         */
+        "customClass"?: string | string[];
+        /**
+          * 节点样式
+         */
+        "customStyle"?: {
+        [key: string]: string
+    } | string;
         /**
           * 间距方向，可选值为 `horizontal` `vertical`，默认为 `horizontal`
          */

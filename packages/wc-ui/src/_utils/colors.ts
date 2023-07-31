@@ -1,6 +1,6 @@
 import { colorBuilder } from '@kviewui/color-builder';
 import type { ThemeType } from '../types';
-import config from '../config';
+// import config from '../config';
 
 /**
  * 判断是否为预设主题色
@@ -105,9 +105,11 @@ export function getActiveColor(color: string, level: number = 6, dark: boolean =
 
 /**
  * 获取悬停态颜色
+ * @param color 颜色值
+ * @param level 色阶号
+ * @param dark 是否为暗色
  */
 export function getHoverColor(color: string, dark: boolean = false, level: number = 4) {
-    console.log(color, 'color');
     return colorBuilder.generate(color, {
         index: level,
         dark

@@ -13,59 +13,156 @@
     .dark {
       background-color: #333;
     }
+
     .margin {
       margin: 10px;
+      /* width: 100%; */
+      box-sizing: border-box;
     }
   </style>
 </head>
 
 <body class="dark1">
   <div class="margin">
-    <h2>按钮主题风格</h2>
+    <h1>Button 按钮组件</h1>
+  </div>
+  <div class="margin">
+    <h3>按钮主题风格</h3>
     <wc-space size="[12, 18]">
       <wc-space-item>
         <wc-button id="wc-button1" dark1></wc-button>
       </wc-space-item>
       <wc-space-item>
-        <wc-button id="wc-button" theme="primary" dark1></wc-button>
+        <wc-button id="wc-button" theme="primary" dark1>主要按钮</wc-button>
       </wc-space-item>
       <wc-space-item>
-        <wc-button id="wc-button" theme="danger" dark1></wc-button>
+        <wc-button id="wc-button" theme="danger" dark1>危险按钮</wc-button>
       </wc-space-item>
       <wc-space-item>
-        <wc-button id="wc-button" theme="warning" dark1></wc-button>
+        <wc-button id="wc-button" theme="warning" dark1>警告按钮</wc-button>
       </wc-space-item>
       <wc-space-item>
-        <wc-button id="wc-button" theme="success" dark1></wc-button>
+        <wc-button id="wc-button" theme="success" dark1>成功按钮</wc-button>
       </wc-space-item>
     </wc-space>
   </div>
   <div class="margin">
-    <h2>按钮变体</h2>
+    <h3>按钮变体</h3>
     <wc-space size="[12, 18]">
       <wc-space-item>
         <wc-button id="wc-button1" dark1 variant="outline"></wc-button>
       </wc-space-item>
       <wc-space-item>
-        <wc-button id="wc-button" theme="primary" dark1 variant="outline"></wc-button>
+        <wc-button id="wc-button" theme="primary" dark1 variant="outline">主要按钮</wc-button>
       </wc-space-item>
       <wc-space-item>
-        <wc-button id="wc-button" theme="danger" dark1 variant="dashed"></wc-button>
+        <wc-button id="wc-button" theme="danger" dark1 variant="dashed">危险按钮</wc-button>
       </wc-space-item>
       <wc-space-item>
-        <wc-button id="wc-button" theme="warning" dark1 variant="text"></wc-button>
+        <wc-button id="wc-button" theme="warning" dark1 variant="text">警告按钮</wc-button>
       </wc-space-item>
       <wc-space-item>
-        <wc-button id="wc-button" theme="success" dark1 variant="contained"></wc-button>
+        <wc-button id="wc-button" theme="success" dark1 variant="contained">成功按钮</wc-button>
       </wc-space-item>
     </wc-space>
+  </div>
+  <div class="margin">
+    <h3>按钮禁用</h3>
+    <wc-space size="[12, 18]">
+      <wc-space-item>
+        <wc-button id="wc-button1" dark1 variant="outline" disabled></wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="primary" dark1 variant="outline" disabled>主要按钮</wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="danger" dark1 variant="dashed" disabled>危险按钮</wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="warning" dark1 variant="text" disabled>警告按钮</wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="success" dark1 variant="contained" disabled>成功按钮</wc-button>
+      </wc-space-item>
+    </wc-space>
+  </div>
+  <div class="margin">
+    <h3>块级按钮</h3>
+    <wc-space size="large" direction="vertical" custom-style="width: 360px;" block>
+      <wc-space-item>
+        <wc-button id="wc-button1" dark1 block></wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="primary" dark1 block>主要按钮</wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="danger" dark1 block>危险按钮</wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="warning" dark1 block>警告按钮</wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="success" dark1 block>成功按钮</wc-button>
+      </wc-space-item>
+    </wc-space>
+  </div>
+  <div class="margin">
+    <h3>按钮形状</h3>
+    <wc-space size="large">
+      <wc-space-item>
+        <wc-button id="wc-button" theme="primary" dark1>主要按钮</wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="danger" dark1 shape="round">危险按钮</wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="warning" dark1 shape="square">+</wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="success" dark1 shape="circle">+</wc-button>
+      </wc-space-item>
+    </wc-space>
+  </div>
+  <div class="margin">
+    <h3>按钮尺寸</h3>
+    <wc-space size="large">
+      <wc-space-item>
+        <wc-button id="wc-button" theme="primary" dark1 size="large">large</wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="danger" dark1>medium</wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="warning" dark1 size="small">small</wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="success" dark1 size="mini">mini</wc-button>
+      </wc-space-item>
+    </wc-space>
+  </div>
+  <div class="margin">
+    <h3>组合按钮（待开发）</h3>
+    <!-- <wc-space size="large">
+      <wc-space-item>
+        <wc-button id="wc-button" theme="primary" dark1 size="large">主要按钮</wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="danger" dark1>危险按钮</wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="warning" dark1 size="small">警告按钮</wc-button>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-button id="wc-button" theme="success" dark1 size="mini">成功按钮</wc-button>
+      </wc-space-item>
+    </wc-space> -->
   </div>
 </body>
 
 </html>
 
 <script lang="ts">
-document.getElementById('wc-button1').addEventListener('click', function(event) {
-  console.log('Received the custom clickEvent: ');
-});
+  document.getElementById('wc-button1').addEventListener('click', function (event) {
+    console.log('Received the custom clickEvent: ');
+  });
 </script>

@@ -1,5 +1,5 @@
-import { Component, h, Element, Prop, Fragment, Host } from '@stencil/core';
-import { isStringArray, isArray } from '../../_utils/is';
+import { Component, h, Element, Prop, Fragment } from '@stencil/core';
+import { isArray, parseStyle, convertHTMLCollectionToArray } from '../../_utils';
 import type * as CSS from 'csstype';
 
 export type SpaceSize = 'mini' | 'small' | 'medium' | 'large' | number;
@@ -29,6 +29,11 @@ const getMargin = (size: SpaceSize) => {
     shadow: true,
 })
 
+/**
+ * 间距组件
+ * @slot default - 默认插槽
+ * @slot split - 分隔符
+ */
 export class WcSpace {
     /**
      * 是否有分隔符
@@ -61,6 +66,23 @@ export class WcSpace {
     @Prop() align: 'start' | 'end' | 'center' | 'baseline' | 'stretch' = 'center';
 
     /**
+     * 节点类名
+     */
+    @Prop() customClass: string | string[] = '';
+
+    /**
+     * 子元素是否为块级元素
+     */
+    @Prop() block: boolean = false;
+
+    /**
+     * 节点样式
+     */
+    @Prop() customStyle: {
+        [key: string]: string
+    } | string = {};
+
+    /**
      * 间距样式 
      * @param isLast - 是否为最后一个元素 
      * @returns 
@@ -89,6 +111,9 @@ export class WcSpace {
             style['margin-bottom'] = marginBottom;
         }
 
+        // 判断是否为块级元素
+        style['width'] = this.block ? '100%' : 'auto';
+
         return style;
     }
 
@@ -112,12 +137,24 @@ export class WcSpace {
             style.alignItems = this.align;
         }
 
-        return style;
+        console.log(this.customStyle)
+
+        return {
+            ...style,
+            ...parseStyle(this.customStyle as string),
+            // ...this.customStyle
+        };
     }
 
     componentWillLoad() {
         // 检查是否有分隔符
         this.hasSplitSlot = !!this.el.querySelector('[slot="split"]');
+
+        console.log(this.hasSplitSlot)
+        console.log(this.customStyle)
+
+        // console.log(convertHTMLCollectionToArray(this.el.children));
+        // console.log(this.el.querySelectorAll('wc-space-item'));
     }
 
     componentDidLoad() {
@@ -128,9 +165,10 @@ export class WcSpace {
         return (
             <div style={this.getHostStyle() as any} class="wc-space">
                 {
-                    Array.prototype.map.call(this.el.querySelectorAll('wc-space-item'), (child: { innerHTML: string; length: number; }, index: any) => {
+                    Array.prototype.map.call(convertHTMLCollectionToArray(this.el.children), (child: { innerHTML: string; length: number; }, index: number) => {
                         const shouldAddSplit = this.hasSplitSlot && index > 0;
-
+                        console.log(shouldAddSplit, 'shouldAddSplit');
+                        console.log(child);
                         return (<Fragment>
                             {shouldAddSplit && (
                                 <span style={this.getMarginStyle(false)} class="wc-space__split" innerHTML={this.el.querySelector('[slot="split"]').innerHTML} />
