@@ -34,7 +34,7 @@ const getMargin = (size: SpaceSize) => {
  * @slot default - 默认插槽
  * @slot split - 分隔符
  */
-export class WcSpace {
+export class Space {
     /**
      * 是否有分隔符
      */

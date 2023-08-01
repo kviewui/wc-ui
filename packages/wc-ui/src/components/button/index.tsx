@@ -7,7 +7,7 @@ import { colorBuilder } from '@kviewui/color-builder';
     tag: 'wc-button',
     shadow: true,
 })
-export class WcButton {
+export class Button {
     /**
      * 按钮变体，可选值为 `base` `outline` `dashed` `text` `contained`，默认为 `base`
      */

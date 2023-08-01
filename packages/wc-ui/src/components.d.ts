@@ -78,6 +78,22 @@ export namespace Components {
          */
         "visible": boolean;
     }
+    interface WcButtonGroup {
+    }
+    interface WcIcon {
+        /**
+          * 自定义类名
+         */
+        "className": string;
+        /**
+          * 是否旋转
+         */
+        "spin": boolean;
+        /**
+          * 图标类型
+         */
+        "type": string;
+    }
     interface WcSpace {
         /**
           * 对齐方式，可选值为 `start` `end` `center` `baseline` `stretch`，默认为 `start`
@@ -130,6 +146,18 @@ declare global {
         prototype: HTMLWcButtonElement;
         new (): HTMLWcButtonElement;
     };
+    interface HTMLWcButtonGroupElement extends Components.WcButtonGroup, HTMLStencilElement {
+    }
+    var HTMLWcButtonGroupElement: {
+        prototype: HTMLWcButtonGroupElement;
+        new (): HTMLWcButtonGroupElement;
+    };
+    interface HTMLWcIconElement extends Components.WcIcon, HTMLStencilElement {
+    }
+    var HTMLWcIconElement: {
+        prototype: HTMLWcIconElement;
+        new (): HTMLWcIconElement;
+    };
     interface HTMLWcSpaceElement extends Components.WcSpace, HTMLStencilElement {
     }
     var HTMLWcSpaceElement: {
@@ -145,6 +173,8 @@ declare global {
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
         "wc-button": HTMLWcButtonElement;
+        "wc-button-group": HTMLWcButtonGroupElement;
+        "wc-icon": HTMLWcIconElement;
         "wc-space": HTMLWcSpaceElement;
         "wc-space-item": HTMLWcSpaceItemElement;
     }
@@ -222,6 +252,22 @@ declare namespace LocalJSX {
          */
         "visible"?: boolean;
     }
+    interface WcButtonGroup {
+    }
+    interface WcIcon {
+        /**
+          * 自定义类名
+         */
+        "className"?: string;
+        /**
+          * 是否旋转
+         */
+        "spin"?: boolean;
+        /**
+          * 图标类型
+         */
+        "type"?: string;
+    }
     interface WcSpace {
         /**
           * 对齐方式，可选值为 `start` `end` `center` `baseline` `stretch`，默认为 `start`
@@ -259,6 +305,8 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "my-component": MyComponent;
         "wc-button": WcButton;
+        "wc-button-group": WcButtonGroup;
+        "wc-icon": WcIcon;
         "wc-space": WcSpace;
         "wc-space-item": WcSpaceItem;
     }
@@ -269,6 +317,8 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "wc-button": LocalJSX.WcButton & JSXBase.HTMLAttributes<HTMLWcButtonElement>;
+            "wc-button-group": LocalJSX.WcButtonGroup & JSXBase.HTMLAttributes<HTMLWcButtonGroupElement>;
+            "wc-icon": LocalJSX.WcIcon & JSXBase.HTMLAttributes<HTMLWcIconElement>;
             "wc-space": LocalJSX.WcSpace & JSXBase.HTMLAttributes<HTMLWcSpaceElement>;
             "wc-space-item": LocalJSX.WcSpaceItem & JSXBase.HTMLAttributes<HTMLWcSpaceItemElement>;
         }

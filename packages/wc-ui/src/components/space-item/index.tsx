@@ -5,7 +5,7 @@ import { Component, h, Element, Fragment } from '@stencil/core';
     shadow: true,
 })
 
-export class WcSpaceItem {
+export class SpaceItem {
     /**
      * 组件根元素
      */

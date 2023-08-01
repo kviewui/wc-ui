@@ -19,6 +19,9 @@
       /* width: 100%; */
       box-sizing: border-box;
     }
+    .mt {
+      margin-top: 30px;
+    }
   </style>
 </head>
 
@@ -141,7 +144,46 @@
     </wc-space>
   </div>
   <div class="margin">
-    <h3>组合按钮（待开发）</h3>
+    <h3>组合按钮</h3>
+    <div>
+      <wc-space size="large">
+        <wc-space-item>
+          <wc-button-group>
+            <wc-button id="wc-button" dark1>medium</wc-button>
+            <wc-button id="wc-button" dark1>+</wc-button>
+          </wc-button-group>
+        </wc-space-item>
+        <wc-space-item>
+          <wc-button-group>
+            <wc-button id="wc-button" theme="primary" dark1>medium</wc-button>
+            <wc-button id="wc-button" theme="primary" dark1>+</wc-button>
+          </wc-button-group>
+        </wc-space-item>
+      </wc-space>
+    </div>
+    <div class="mt">
+      <wc-space size="large">
+        <wc-space-item>
+          <wc-button-group>
+            <wc-button id="wc-button" theme="success" dark1>+</wc-button>
+            <wc-button id="wc-button" theme="success" dark1>-</wc-button>
+            <wc-button id="wc-button" theme="success" dark1>x</wc-button>
+          </wc-button-group>
+        </wc-space-item>
+        <wc-space-item>
+          <wc-button-group>
+            <wc-button id="wc-button" theme="success" shape="round" dark1>上一页</wc-button>
+            <wc-button id="wc-button" theme="success" shape="round" dark1>下一页</wc-button>
+          </wc-button-group>
+        </wc-space-item>
+        <wc-space-item>
+          <wc-button-group>
+            <wc-button id="wc-button" theme="success" dark1>点赞</wc-button>
+            <wc-button id="wc-button" theme="success" dark1>收藏</wc-button>
+          </wc-button-group>
+        </wc-space-item>
+      </wc-space>
+    </div>
     <!-- <wc-space size="large">
       <wc-space-item>
         <wc-button id="wc-button" theme="primary" dark1 size="large">主要按钮</wc-button>
