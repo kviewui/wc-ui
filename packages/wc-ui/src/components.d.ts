@@ -84,7 +84,11 @@ export namespace Components {
         /**
           * 自定义类名
          */
-        "className": string;
+        "customClass": string;
+        /**
+          * 自定义样式
+         */
+        "customStyle": string | object;
         /**
           * 是否旋转
          */
@@ -258,7 +262,11 @@ declare namespace LocalJSX {
         /**
           * 自定义类名
          */
-        "className"?: string;
+        "customClass"?: string;
+        /**
+          * 自定义样式
+         */
+        "customStyle"?: string | object;
         /**
           * 是否旋转
          */
