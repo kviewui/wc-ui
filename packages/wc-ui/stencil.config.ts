@@ -16,9 +16,13 @@ export const config: Config = {
     {
       type: 'www',
       serviceWorker: null, // disable service workers
+      copy: [
+        { src: '../node_modules/@wcui/icons/dist/wc-icons', dest: '@wcui/icons' }
+      ]
     },
   ],
   testing: {
     browserHeadless: "new",
-  }
+  },
+  globalStyle: 'src/global/app.css'
 };

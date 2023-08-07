@@ -10,20 +10,6 @@ import { SpaceSize } from "./components/space/index";
 export { ThemeType } from "./types";
 export { SpaceSize } from "./components/space/index";
 export namespace Components {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
-    }
     interface WcButton {
         /**
           * 按钮是否为块级元素，默认为 `false`
@@ -98,6 +84,8 @@ export namespace Components {
          */
         "type": string;
     }
+    interface WcIconFont {
+    }
     interface WcSpace {
         /**
           * 对齐方式，可选值为 `start` `end` `center` `baseline` `stretch`，默认为 `start`
@@ -138,12 +126,6 @@ export interface WcButtonCustomEvent<T> extends CustomEvent<T> {
     target: HTMLWcButtonElement;
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
-    }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
-    };
     interface HTMLWcButtonElement extends Components.WcButton, HTMLStencilElement {
     }
     var HTMLWcButtonElement: {
@@ -162,6 +144,12 @@ declare global {
         prototype: HTMLWcIconElement;
         new (): HTMLWcIconElement;
     };
+    interface HTMLWcIconFontElement extends Components.WcIconFont, HTMLStencilElement {
+    }
+    var HTMLWcIconFontElement: {
+        prototype: HTMLWcIconFontElement;
+        new (): HTMLWcIconFontElement;
+    };
     interface HTMLWcSpaceElement extends Components.WcSpace, HTMLStencilElement {
     }
     var HTMLWcSpaceElement: {
@@ -175,29 +163,15 @@ declare global {
         new (): HTMLWcSpaceItemElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
         "wc-button": HTMLWcButtonElement;
         "wc-button-group": HTMLWcButtonGroupElement;
         "wc-icon": HTMLWcIconElement;
+        "wc-icon-font": HTMLWcIconFontElement;
         "wc-space": HTMLWcSpaceElement;
         "wc-space-item": HTMLWcSpaceItemElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
-    }
     interface WcButton {
         /**
           * 按钮是否为块级元素，默认为 `false`
@@ -276,6 +250,8 @@ declare namespace LocalJSX {
          */
         "type"?: string;
     }
+    interface WcIconFont {
+    }
     interface WcSpace {
         /**
           * 对齐方式，可选值为 `start` `end` `center` `baseline` `stretch`，默认为 `start`
@@ -311,10 +287,10 @@ declare namespace LocalJSX {
     interface WcSpaceItem {
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
         "wc-button": WcButton;
         "wc-button-group": WcButtonGroup;
         "wc-icon": WcIcon;
+        "wc-icon-font": WcIconFont;
         "wc-space": WcSpace;
         "wc-space-item": WcSpaceItem;
     }
@@ -323,10 +299,10 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "wc-button": LocalJSX.WcButton & JSXBase.HTMLAttributes<HTMLWcButtonElement>;
             "wc-button-group": LocalJSX.WcButtonGroup & JSXBase.HTMLAttributes<HTMLWcButtonGroupElement>;
             "wc-icon": LocalJSX.WcIcon & JSXBase.HTMLAttributes<HTMLWcIconElement>;
+            "wc-icon-font": LocalJSX.WcIconFont & JSXBase.HTMLAttributes<HTMLWcIconFontElement>;
             "wc-space": LocalJSX.WcSpace & JSXBase.HTMLAttributes<HTMLWcSpaceElement>;
             "wc-space-item": LocalJSX.WcSpaceItem & JSXBase.HTMLAttributes<HTMLWcSpaceItemElement>;
         }

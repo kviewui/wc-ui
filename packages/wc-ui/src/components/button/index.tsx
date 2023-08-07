@@ -9,6 +9,16 @@ import { colorBuilder } from '@kviewui/color-builder';
 })
 export class Button {
     /**
+     * 是否有图标插槽，默认为 `false`
+     */
+    hasIconSlot: boolean;
+
+    /**
+     * 组件根元素
+     */
+    @Element() el: HTMLElement;
+
+    /**
      * 按钮变体，可选值为 `base` `outline` `dashed` `text` `contained`，默认为 `base`
      */
     @Prop() variant: 'base' | 'outline' | 'dashed' | 'text' | 'contained' = 'base';
@@ -22,7 +32,7 @@ export class Button {
      * 按钮形状，可选值为 `rectangle` `square` `round` `circle`，默认为 `rectangle`
      */
     @Prop() shape: 'rectangle' | 'square' | 'round' | 'circle' = 'rectangle';
-    
+
     /**
      * 按钮风格，可选值为 `default` `primary` `success` `warning` `danger`，默认为 `default`
      */
@@ -80,7 +90,7 @@ export class Button {
     @State() borderWidth: string = '0px';
     @State() borderStyle: string = 'solid';
     @State() borderRadius: string = '';
-    @State() padding: string = '0 18px';
+    @State() padding: string = '0 16px';
     @State() width: string = '';
     @State() height: string = '38px';
     @State() textAlign: string = 'center';
@@ -95,7 +105,7 @@ export class Button {
         cancelable: true,
         bubbles: true,
     }) click: EventEmitter<MouseEvent>;
-    
+
     handleClick = (e: MouseEvent) => {
         if (this.disabled) {
             e.preventDefault();
@@ -103,8 +113,6 @@ export class Button {
         }
         this.click.emit(e);
     }
-
-    @Element() buttonRef!: HTMLButtonElement;
 
     /**
      * 获取按钮尺寸
@@ -115,15 +123,15 @@ export class Button {
         }
         switch (this.size) {
             case 'mini':
-                return '24px';
+                return '20px';
             case 'small':
-                return '30px';
+                return '26px';
             case 'medium':
-                return '38px';
+                return '32px';
             case 'large':
-                return '46px';
+                return '44px';
             default:
-                return '38px';
+                return '40px';
         }
     }
 
@@ -226,11 +234,11 @@ export class Button {
             case 'small':
                 return '14px';
             case 'medium':
-                return '16px';
+                return '14px';
             case 'large':
-                return '18px';
-            default:
                 return '16px';
+            default:
+                return '14px';
         }
     }
 
@@ -242,19 +250,38 @@ export class Button {
         this.height = this.getSize();
         switch (this.size) {
             case 'mini':
-                this.padding = '0 8px';
+                this.padding = '0 5px';
                 break;
             case 'small':
-                this.padding = '0 12px';
+                this.padding = '0 10px';
                 break;
             case 'medium':
-                this.padding = '0 18px';
+                this.padding = '0 15px';
                 break;
             case 'large':
-                this.padding = '0 24px';
+                this.padding = '0 20px';
                 break;
             default:
                 break;
+        }
+    }
+
+    /**
+     * 根据是否使用图标设置按钮样式
+     */
+    setIconStyle = () => {
+        if (this.hasIconSlot) {
+            // switch (this.iconPosition) {
+            //     case 'left':
+            //         this.padding = '0 10px 0 5px';
+            //         break;
+            //     case 'right':
+            //         this.padding = '0 5px 0 10px';
+            //         break;
+            //     default:
+            //         break;
+            // }
+            this.padding = '';
         }
     }
 
@@ -278,7 +305,7 @@ export class Button {
             const level = this.dark ? this.level - 2 : this.level;
 
             this.backgroundColor = 'transparent';
-            
+
             this.color = this.borderColor = getPresetColor(getHoverColor(getThemeColor(theme)), level, this.dark);
             return;
         } else if (this.variant === 'text') {
@@ -302,6 +329,8 @@ export class Button {
     }
 
     componentWillLoad() {
+        // 检测是否使用了图标插槽
+        this.hasIconSlot = !!this.el.querySelector('[slot="icon"]');
         // console.log('wc-button componentWillLoad');
         // 设置默认按钮风格
         if (this.theme === 'default') {
@@ -318,11 +347,13 @@ export class Button {
         this.setShapeStyle();
 
         this.setBlockStyle();
+
+        this.setIconStyle();
     }
 
     connectedCallback() {
         // console.log(this.buttonRef);
-        
+
         // console.log('wc-button connectedCallback');
         // this.getBaseStyle();
         // console.log('wc-button connectedCallback');
@@ -332,7 +363,7 @@ export class Button {
         // console.log(this.buttonRef);
         // console.log(getThemeColor('primary'));
 
-    // console.log('backgroundColor', this.backgroundColor);
+        // console.log('backgroundColor', this.backgroundColor);
 
     }
 
@@ -340,7 +371,7 @@ export class Button {
      * 获取默认主题色
      */
     getDefaultThemeColor = (level: number = 4) => {
-       return colorBuilder.getPresetColors()['grey'][this.dark ? 'dark' : 'light'][level]
+        return colorBuilder.getPresetColors()['grey'][this.dark ? 'dark' : 'light'][level]
     }
 
     /**
@@ -452,7 +483,8 @@ export class Button {
             borderStyle: this.borderStyle,
             opacity: this.disabled ? 0.5 : 1,
             transition: 'all 0.3s ease-in-out',
-            display: this.block ? 'block' : 'inline-block',
+            display: this.block ? 'block' : 'flex',
+            alignItems: 'center',
             width: this.width,
             textAlign: this.textAlign,
         }
@@ -471,6 +503,14 @@ export class Button {
                     onMouseDown={this.onMouseDown}
                     onMouseUp={this.onMouseUp}
                     onMouseLeave={this.onMouseLeave}>
+                    {/* <icon-add-circle></icon-add-circle> */}
+                    {
+                        this.hasIconSlot &&
+                        <slot name='icon'>
+                            <icon-add-circle></icon-add-circle>
+                        </slot>
+                    }
+
                     <slot>
                         {this.text}
                     </slot>

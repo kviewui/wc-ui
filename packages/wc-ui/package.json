@@ -27,7 +27,8 @@
     "dev:h5": "http-server www -c-1 -o -a localhost -p 3334"
   },
   "dependencies": {
-    "@stencil/core": "^4.0.0"
+    "@stencil/core": "^4.0.0",
+    "@wcui/icons": "file:../../../wc-icons/packages/wc-icons"
   },
   "devDependencies": {
     "@kviewui/color-builder": "^1.0.5",

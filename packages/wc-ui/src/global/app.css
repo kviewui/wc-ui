@@ -1,0 +1,108 @@
+/* reset.css */
+
+/* 重置所有元素的 margin、padding、box-sizing 和 border */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+}
+
+/* 设置所有元素的字体为系统默认字体，并设置了字体大小、行高和文本颜色 */
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+  line-height: 1.5;
+  font-size: 16px;
+  color: #000;
+}
+
+/* 设置所有链接的文本颜色和下划线样式，并添加了 hover 和 focus 效果 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
+/* 设置所有图片和视频为响应式布局，并移除了默认的拖动效果 */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+img,
+video {
+  user-drag: none;
+}
+
+/* 设置所有表格为边框合并模式，并添加了一些基本的样式 */
+table {
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 0.5em;
+}
+
+/* 设置所有列表项为无序列表，并移除了默认的标记 */
+ul,
+ol {
+  list-style: none;
+}
+
+/* 设置所有表单元素为无样式，并添加了一些基本的样式 */
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+input[type='checkbox'],
+input[type='radio'] {
+  display: inline-block;
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  height: auto;
+}
+input[type='search']::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+button {
+  cursor: pointer;
+}
+button::-moz-focus-inner {
+  border-style: none;
+}
+textarea {
+  resize: vertical;
+}
+
+/* 设置所有代码元素为等宽字体，并添加了一些基本的样式 */
+code,
+pre {
+  font-family: monospace, monospace;
+}
+pre {
+  overflow-x: auto;
+}
+
+/* 设置所有引用元素为斜体，并添加了一些基本的样式 */
+q {
+  font-style: italic;
+}
+q::before,
+q::after {
+  content: '';
+}
+
+/* 设置所有隐藏元素为不可见，并移除了默认的空白 */
+[hidden] {
+  display: none !important;
+}

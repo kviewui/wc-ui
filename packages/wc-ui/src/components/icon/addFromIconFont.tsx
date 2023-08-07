@@ -1,7 +1,7 @@
 import { Component, h } from '@stencil/core';
 
 @Component({
-    tag: 'wc-icon',
+    tag: 'wc-icon-font',
     shadow: true
 })
 export class Icon {
