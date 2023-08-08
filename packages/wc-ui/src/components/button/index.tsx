@@ -13,6 +13,8 @@ export class Button {
      */
     hasIconSlot: boolean;
 
+    hasDefaultSlot: boolean;
+
     /**
      * 组件根元素
      */
@@ -51,7 +53,7 @@ export class Button {
     /**
      * 按钮文本，也可通过默认插槽设置文本
      */
-    @Prop() text: string = '默认按钮';
+    @Prop() text: string = '';
 
     /**
      * 按钮是否可见，默认为 `true`
@@ -95,6 +97,8 @@ export class Button {
     @State() height: string = '38px';
     @State() textAlign: string = 'center';
     @State() fontSize: string = '14px';
+    @State() margin: string = '0';
+    @State() justifyContent: string = 'center';
 
     /**
      * 点击事件
@@ -207,14 +211,14 @@ export class Button {
                 // this.padding = '0 18px';
                 break;
             case 'square':
-                this.padding = '';
+                // this.padding = '';
                 this.width = this.height = this.getSize();
                 break;
             case 'round':
                 // this.padding = '0 18px';
                 break;
             case 'circle':
-                this.padding = '';
+                // this.padding = '';
                 this.width = this.height = this.getSize();
             default:
                 break;
@@ -281,7 +285,10 @@ export class Button {
             //     default:
             //         break;
             // }
-            this.padding = '';
+            // this.padding = this.margin = '0';
+            if (!this.hasDefaultSlot) {
+                this.width = this.height = this.getSize();
+            }
         }
     }
 
@@ -331,6 +338,7 @@ export class Button {
     componentWillLoad() {
         // 检测是否使用了图标插槽
         this.hasIconSlot = !!this.el.querySelector('[slot="icon"]');
+        this.hasDefaultSlot = !!this.el.querySelector('[slot="default"]');
         // console.log('wc-button componentWillLoad');
         // 设置默认按钮风格
         if (this.theme === 'default') {
@@ -487,6 +495,9 @@ export class Button {
             alignItems: 'center',
             width: this.width,
             textAlign: this.textAlign,
+            justifyContent: this.justifyContent,
+            stroke: '#fff',
+            lineHeight: 1
         }
     }
 
@@ -506,14 +517,27 @@ export class Button {
                     {/* <icon-add-circle></icon-add-circle> */}
                     {
                         this.hasIconSlot &&
-                        <slot name='icon'>
-                            <icon-add-circle></icon-add-circle>
-                        </slot>
+                        <span style={{'padding-top': '1px'}}>
+                            <slot name='icon'>
+                                <icon-add-circle></icon-add-circle>
+                            </slot>
+                        </span>
+                    }
+                    {
+                        this.hasDefaultSlot && this.hasIconSlot &&
+                        <span style={{ 'width': '4px' }}></span>
+                    }
+                    {
+                        this.hasIconSlot && this.hasDefaultSlot &&
+                        <slot name='default'></slot>
                     }
 
-                    <slot>
-                        {this.text}
-                    </slot>
+                    {
+                        !this.hasDefaultSlot &&
+                        <slot>
+                            {this.text}
+                        </slot>
+                    }
                 </button>
             </Fragment>);
         }

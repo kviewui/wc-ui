@@ -9,6 +9,8 @@
   <script type="module" src="/build/wc-ui.esm.js"></script>
   <script nomodule src="/build/wc-ui.js"></script>
   <script type="module" src="/@wcui/icons/wc-icons.esm.js"></script>
+  <link rel="stylesheet" href="/build/wc-ui.css">
+  <link rel="stylesheet" href="https://unpkg.com/lwu-css@1.0.2/dist/index.css">
   <style>
     /* @import url('./common/css/dist/index.css'); */
     .dark {
@@ -32,10 +34,10 @@
   </div>
   <!-- <icon-add-circle></icon-add-circle> -->
   <div class="margin">
-    <h3>按钮主题风格</h3>
+    <h3 class=" lwu-mb-3">按钮主题风格</h3>
     <wc-space size="[12, 18]">
       <wc-space-item>
-        <wc-button id="wc-button1" dark1></wc-button>
+        <wc-button id="wc-button1" dark1>默认按钮</wc-button>
       </wc-space-item>
       <wc-space-item>
         <wc-button id="wc-button" theme="primary" dark1>主要按钮</wc-button>
@@ -52,10 +54,10 @@
     </wc-space>
   </div>
   <div class="margin">
-    <h3>按钮变体</h3>
+    <h3 class=" lwu-mb-3">按钮变体</h3>
     <wc-space size="[12, 18]">
       <wc-space-item>
-        <wc-button id="wc-button1" dark1 variant="outline"></wc-button>
+        <wc-button id="wc-button1" dark1 variant="outline">默认按钮</wc-button>
       </wc-space-item>
       <wc-space-item>
         <wc-button id="wc-button" theme="primary" dark1 variant="outline">主要按钮</wc-button>
@@ -72,10 +74,10 @@
     </wc-space>
   </div>
   <div class="margin">
-    <h3>按钮禁用</h3>
+    <h3 class=" lwu-mb-3">按钮禁用</h3>
     <wc-space size="[12, 18]">
       <wc-space-item>
-        <wc-button id="wc-button1" dark1 variant="outline" disabled></wc-button>
+        <wc-button id="wc-button1" dark1 variant="outline" disabled>默认按钮</wc-button>
       </wc-space-item>
       <wc-space-item>
         <wc-button id="wc-button" theme="primary" dark1 variant="outline" disabled>主要按钮</wc-button>
@@ -92,10 +94,10 @@
     </wc-space>
   </div>
   <div class="margin">
-    <h3>块级按钮</h3>
+    <h3 class=" lwu-mb-3">块级按钮</h3>
     <wc-space size="large" direction="vertical" custom-style="width: 360px;" block>
       <wc-space-item>
-        <wc-button id="wc-button1" dark1 block></wc-button>
+        <wc-button id="wc-button1" dark1 block>默认按钮</wc-button>
       </wc-space-item>
       <wc-space-item>
         <wc-button id="wc-button" theme="primary" dark1 block>主要按钮</wc-button>
@@ -112,31 +114,27 @@
     </wc-space>
   </div>
   <div class="margin">
-    <h3>图标按钮</h3>
+    <h3 class=" lwu-mb-3">图标按钮</h3>
     <wc-space size="large" custom-style="width: 360px;">
       <wc-space-item>
         <wc-button id="wc-button1" theme="primary" dark1>
           <span slot="icon">
-            <icon-add-circle />
+            <icon-plus color="#fff" />
           </span>
         </wc-button>
       </wc-space-item>
       <wc-space-item>
-        <wc-button id="wc-button" theme="primary" dark1>主要按钮</wc-button>
-      </wc-space-item>
-      <wc-space-item>
-        <wc-button id="wc-button" theme="danger" dark1>危险按钮</wc-button>
-      </wc-space-item>
-      <wc-space-item>
-        <wc-button id="wc-button" theme="warning" dark1>警告按钮</wc-button>
-      </wc-space-item>
-      <wc-space-item>
-        <wc-button id="wc-button" theme="success" dark1>成功按钮</wc-button>
+        <wc-button id="wc-button" theme="primary" dark1>
+          <span slot="icon">
+            <icon-like color="#fff" />
+          </span>
+          <span slot="default">收藏按钮</span>
+        </wc-button>
       </wc-space-item>
     </wc-space>
   </div>
   <div class="margin">
-    <h3>按钮形状</h3>
+    <h3 class=" lwu-mb-3">按钮形状</h3>
     <wc-space size="large">
       <wc-space-item>
         <wc-button id="wc-button" theme="primary" dark1>主要按钮</wc-button>
@@ -145,15 +143,23 @@
         <wc-button id="wc-button" theme="danger" dark1 shape="round">危险按钮</wc-button>
       </wc-space-item>
       <wc-space-item>
-        <wc-button id="wc-button" theme="warning" dark1 shape="square">+</wc-button>
+        <wc-button id="wc-button" theme="warning" dark1 shape="square">
+          <span slot="icon">
+            <icon-plus color="#fff" />
+          </span>
+        </wc-button>
       </wc-space-item>
       <wc-space-item>
-        <wc-button id="wc-button" theme="success" dark1 shape="circle">+</wc-button>
+        <wc-button id="wc-button" theme="success" dark1 shape="circle">
+          <span slot="icon">
+            <icon-plus color="#fff" />
+          </span>
+        </wc-button>
       </wc-space-item>
     </wc-space>
   </div>
   <div class="margin">
-    <h3>按钮尺寸</h3>
+    <h3 class=" lwu-mb-3">按钮尺寸</h3>
     <wc-space size="large">
       <wc-space-item>
         <wc-button id="wc-button" theme="primary" dark1 size="large">large</wc-button>
@@ -170,19 +176,27 @@
     </wc-space>
   </div>
   <div class="margin">
-    <h3>组合按钮</h3>
+    <h3 class=" lwu-mb-3">组合按钮</h3>
     <div>
       <wc-space size="large">
         <wc-space-item>
           <wc-button-group>
             <wc-button id="wc-button" dark1>medium</wc-button>
-            <wc-button id="wc-button" dark1>+</wc-button>
+            <wc-button id="wc-button" dark1>
+              <span slot="icon">
+                <icon-down />
+              </span>
+            </wc-button>
           </wc-button-group>
         </wc-space-item>
         <wc-space-item>
           <wc-button-group>
             <wc-button id="wc-button" theme="primary" dark1>medium</wc-button>
-            <wc-button id="wc-button" theme="primary" dark1>+</wc-button>
+            <wc-button id="wc-button" theme="primary" dark1>
+              <span slot="icon">
+                <icon-down color="#fff" />
+              </span>
+            </wc-button>
           </wc-button-group>
         </wc-space-item>
       </wc-space>
@@ -191,15 +205,41 @@
       <wc-space size="large">
         <wc-space-item>
           <wc-button-group>
-            <wc-button id="wc-button" theme="success" dark1>+</wc-button>
-            <wc-button id="wc-button" theme="success" dark1>-</wc-button>
-            <wc-button id="wc-button" theme="success" dark1>x</wc-button>
+            <wc-button id="wc-button" theme="success" dark1>
+              <span slot="icon">
+                <icon-plus color="#fff" />
+              </span>
+            </wc-button>
+            <wc-button id="wc-button" theme="success" dark1>
+              <span slot="icon">
+                <icon-minus color="#fff" />
+              </span>
+            </wc-button>
+            <wc-button id="wc-button" theme="success" dark1>
+              <span slot="icon">
+                <icon-close color="#fff" />
+              </span>
+            </wc-button>
           </wc-button-group>
         </wc-space-item>
         <wc-space-item>
           <wc-button-group>
-            <wc-button id="wc-button" theme="success" shape="round" dark1>上一页</wc-button>
-            <wc-button id="wc-button" theme="success" shape="round" dark1>下一页</wc-button>
+            <wc-button id="wc-button" theme="success" shape="round" dark1>
+              <span slot="icon">
+                <icon-left color="#fff" />
+              </span>
+              <span slot="default">
+                上一页
+              </span>
+            </wc-button>
+            <wc-button id="wc-button" theme="success" shape="round" dark1>
+              <span slot="default">
+                下一页
+              </span>
+              <span slot="icon">
+                <icon-right color="#fff" />
+              </span>
+            </wc-button>
           </wc-button-group>
         </wc-space-item>
         <wc-space-item>
