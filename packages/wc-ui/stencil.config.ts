@@ -19,7 +19,7 @@ export const config: Config = {
       copy: [
         { src: '../node_modules/@wcui/icons/dist/wc-icons', dest: '@wcui/icons' }
       ]
-    },
+    }
   ],
   testing: {
     browserHeadless: "new",

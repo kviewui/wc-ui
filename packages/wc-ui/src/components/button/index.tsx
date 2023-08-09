@@ -85,7 +85,6 @@ export class Button {
      */
     @Prop() size: 'mini' | 'small' | 'medium' | 'large' | number = 'medium';
 
-    @State() backgroundColor: string = getPresetColor(getThemeColor(this.theme), this.level, this.dark);
     @State() color: string = '#fff';
     @State() boxShadow: string = this.variant === 'contained' ? '0 5px 10px 0 rgba(0, 0, 0, 0.1)' : '';
     @State() borderColor: string = '';
@@ -99,6 +98,9 @@ export class Button {
     @State() fontSize: string = '14px';
     @State() margin: string = '0';
     @State() justifyContent: string = 'center';
+    @State() themeValue: ThemeType = this.theme;
+    @State() backgroundColor: string = 'transparent';
+    @State() disabledValue: boolean = this.disabled;
 
     /**
      * 点击事件
@@ -110,13 +112,13 @@ export class Button {
         bubbles: true,
     }) click: EventEmitter<MouseEvent>;
 
-    handleClick = (e: MouseEvent) => {
-        if (this.disabled) {
-            e.preventDefault();
-            return;
-        }
-        this.click.emit(e);
+    /**
+     * 设置按钮背景色
+     */
+    setButtonColor = (theme: ThemeType = this.themeValue) => {
+        this.backgroundColor = getPresetColor(getThemeColor(theme), this.level, this.dark);
     }
+
 
     /**
      * 获取按钮尺寸
@@ -165,19 +167,19 @@ export class Button {
                 break;
             case 'outline':
                 this.boxShadow = '';
-                this.borderColor = this.color = getPresetColor(getThemeColor(this.theme), level, this.dark);
+                this.borderColor = this.color = getPresetColor(getThemeColor(this.themeValue), level, this.dark);
                 this.borderWidth = '1px';
                 this.borderStyle = 'solid';
                 this.backgroundColor = 'transparent';
                 // 判断是否为默认主题，如果是则设置默认主题的文字颜色和边框颜色
-                if (this.theme === 'default') {
+                if (this.themeValue === 'default') {
                     this.color = this.dark ? '#fff' : '#333';
                     this.borderColor = this.dark ? '#fff' : this.getDefaultThemeColor();
                 }
                 break;
             case 'dashed':
                 this.boxShadow = '';
-                this.borderColor = this.color = getPresetColor(getThemeColor(this.theme), level, this.dark);
+                this.borderColor = this.color = getPresetColor(getThemeColor(this.themeValue), level, this.dark);
                 this.borderWidth = '1px';
                 this.borderStyle = 'dashed';
                 this.backgroundColor = 'transparent';
@@ -188,7 +190,7 @@ export class Button {
                 this.borderWidth = '0px';
                 this.borderStyle = 'solid';
                 this.backgroundColor = 'transparent';
-                this.color = getPresetColor(getThemeColor(this.theme), level, this.dark);
+                this.color = getPresetColor(getThemeColor(this.themeValue), level, this.dark);
                 break;
             case 'contained':
                 this.boxShadow = '0 5px 10px 0 rgba(0, 0, 0, 0.1)';
@@ -271,6 +273,17 @@ export class Button {
     }
 
     /**
+     * 根据按钮主题设置文字颜色，如果是默认主题则设置默认主题的文字颜色
+     */
+    setColor = () => {
+        // this.color = getPresetColor(getThemeColor(this.themeValue), this.level, this.dark);
+        if (this.themeValue === 'default') {
+            this.color = this.dark ? '#fff' : '#333';
+        }
+    }
+    
+
+    /**
      * 根据是否使用图标设置按钮样式
      */
     setIconStyle = () => {
@@ -307,7 +320,7 @@ export class Button {
     setHoverStyle = () => {
         if (this.variant !== 'base' && this.variant !== 'contained' && this.variant !== 'text') {
             // 判断是否为默认主题，如果是则设置默认主题的文字颜色和边框颜色
-            const theme = this.theme === 'default' ? 'primary' : this.theme;
+            const theme = this.themeValue === 'default' ? 'primary' : this.themeValue;
 
             const level = this.dark ? this.level - 2 : this.level;
 
@@ -336,15 +349,19 @@ export class Button {
     }
 
     componentWillLoad() {
+        // // 获取父元素的data-theme属性值，如果没有则用自身的theme属性值
+        // const parentTheme = this.el.parentElement?.getAttribute('data-theme') || this.theme;
+        // console.log('parentTheme', parentTheme);
+        this.setButtonColor(this.themeValue);
+        // 如果按钮是 loading 状态，则禁用按钮
+        if (this.loading) {
+            this.disabledValue = true;
+        }
         // 检测是否使用了图标插槽
         this.hasIconSlot = !!this.el.querySelector('[slot="icon"]');
         this.hasDefaultSlot = !!this.el.querySelector('[slot="default"]');
         // console.log('wc-button componentWillLoad');
-        // 设置默认按钮风格
-        if (this.theme === 'default') {
-            this.color = this.dark ? '#fff' : '#333';
-            this.backgroundColor = colorBuilder.getPresetColors()['grey'][this.dark ? 'dark' : 'light'][2];
-        }
+        console.log('themeValue', this.themeValue);
 
         this.setVariantStyle();
 
@@ -357,6 +374,15 @@ export class Button {
         this.setBlockStyle();
 
         this.setIconStyle();
+
+        // console.log(this.el.parentElement?.getAttribute('data-theme'));
+
+        if (this.el.parentElement?.getAttribute('theme')) {
+            this.setButtonColor(this.el.parentElement?.getAttribute('theme') as ThemeType);
+            this.themeValue = this.el.parentElement?.getAttribute('theme') as ThemeType;
+        }
+
+        this.setColor();
     }
 
     connectedCallback() {
@@ -387,10 +413,10 @@ export class Button {
      */
     onMouseEnter = () => {
         // 判断按钮是否禁用
-        if (this.disabled) {
+        if (this.disabledValue) {
             return;
         }
-        if (this.theme === 'default' && this.variant === 'base') {
+        if (this.themeValue === 'default' && this.variant === 'base') {
             this.backgroundColor = this.getDefaultThemeColor(3);
             return;
         }
@@ -406,10 +432,10 @@ export class Button {
      */
     onMouseLeave = () => {
         // 判断按钮是否禁用
-        if (this.disabled) {
+        if (this.disabledValue) {
             return;
         }
-        if (this.theme === 'default' && this.variant === 'base') {
+        if (this.themeValue === 'default' && this.variant === 'base') {
             this.backgroundColor = this.getDefaultThemeColor(2);
             return;
         }
@@ -417,7 +443,7 @@ export class Button {
             this.setVariantStyle();
             return;
         }
-        this.backgroundColor = getPresetColor(getThemeColor(this.theme), this.level, this.dark);
+        this.backgroundColor = getPresetColor(getThemeColor(this.themeValue), this.level, this.dark);
     };
 
     /**
@@ -425,10 +451,10 @@ export class Button {
      */
     onMouseDown = () => {
         // 判断按钮是否禁用
-        if (this.disabled) {
+        if (this.disabledValue) {
             return;
         }
-        if (this.theme === 'default' && this.variant === 'base') {
+        if (this.themeValue === 'default' && this.variant === 'base') {
             this.backgroundColor = this.getDefaultThemeColor(4);
             return;
         }
@@ -436,7 +462,7 @@ export class Button {
             this.setActiveStyle();
             return;
         }
-        this.backgroundColor = getActiveColor(getPresetColor(getThemeColor(this.theme), 6, this.dark), this.level, this.dark);
+        this.backgroundColor = getActiveColor(getPresetColor(getThemeColor(this.themeValue), 6, this.dark), this.level, this.dark);
     };
 
     /**
@@ -444,10 +470,10 @@ export class Button {
      */
     onMouseUp = () => {
         // 判断按钮是否禁用
-        if (this.disabled) {
+        if (this.disabledValue) {
             return;
         }
-        if (this.theme === 'default' && this.variant === 'base') {
+        if (this.themeValue === 'default' && this.variant === 'base') {
             this.backgroundColor = this.getDefaultThemeColor(2);
             return;
         }
@@ -456,7 +482,7 @@ export class Button {
             return;
         }
         // this.backgroundColor = getPresetColor(getThemeColor(this.theme), this.level, this.dark);
-        this.backgroundColor = getHoverColor(getPresetColor(getThemeColor(this.theme), 6, this.dark), this.dark);
+        this.backgroundColor = getHoverColor(getPresetColor(getThemeColor(this.themeValue), 6, this.dark), this.dark);
     };
 
     /**
@@ -480,7 +506,7 @@ export class Button {
             borderWidth: this.borderWidth,
             color: this.color,
             backgroundColor: this.backgroundColor,
-            cursor: this.disabled ? 'not-allowed' : 'pointer',
+            cursor: this.disabledValue ? 'not-allowed' : 'pointer',
             userSelect: 'none',
             borderColor: this.borderColor,
             padding: this.padding,
@@ -489,7 +515,7 @@ export class Button {
             borderRadius: this.borderRadius,
             boxShadow: this.boxShadow,
             borderStyle: this.borderStyle,
-            opacity: this.disabled ? 0.5 : 1,
+            opacity: this.disabledValue ? 0.5 : 1,
             transition: 'all 0.3s ease-in-out',
             display: this.block ? 'block' : 'flex',
             alignItems: 'center',
@@ -505,9 +531,9 @@ export class Button {
         if (this.visible) {
             return (<Fragment>
                 <button style={this.getBaseStyle() as any}
-                    disabled={this.disabled}
+                    disabled={this.disabledValue}
                     type={this.type}
-                    onClick={this.handleClick}
+                    onClick={(e) => this.clickHandler(e)}
                     onTouchStart={this.onTouchStart}
                     onTouchEnd={this.onTouchEnd}
                     onMouseEnter={this.onMouseEnter}
@@ -533,6 +559,14 @@ export class Button {
                     }
 
                     {
+                        this.loading &&
+                        <span style={{'padding-top': '2px'}}>
+                            <icon-loading color={this.color} size="14" spin></icon-loading>
+                            <span style={{ 'margin-right': '6px' }}></span>
+                        </span>
+                    }
+
+                    {
                         !this.hasDefaultSlot &&
                         <slot>
                             {this.text}
@@ -541,5 +575,13 @@ export class Button {
                 </button>
             </Fragment>);
         }
+    }
+
+    clickHandler(e: MouseEvent) {
+        if (this.disabledValue) {
+            e.preventDefault();
+            return;
+        }
+        this.click.emit(e);
     }
 }

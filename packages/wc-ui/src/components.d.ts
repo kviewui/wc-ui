@@ -65,6 +65,10 @@ export namespace Components {
         "visible": boolean;
     }
     interface WcButtonGroup {
+        /**
+          * 按钮主题
+         */
+        "theme": any;
     }
     interface WcIcon {
         /**
@@ -124,6 +128,18 @@ export namespace Components {
 export interface WcButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLWcButtonElement;
+}
+export interface WcButtonGroupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLWcButtonGroupElement;
+}
+export interface WcSpaceCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLWcSpaceElement;
+}
+export interface WcSpaceItemCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLWcSpaceItemElement;
 }
 declare global {
     interface HTMLWcButtonElement extends Components.WcButton, HTMLStencilElement {
@@ -231,6 +247,11 @@ declare namespace LocalJSX {
         "visible"?: boolean;
     }
     interface WcButtonGroup {
+        "onWcClick"?: (event: WcButtonGroupCustomEvent<any>) => void;
+        /**
+          * 按钮主题
+         */
+        "theme"?: any;
     }
     interface WcIcon {
         /**
@@ -275,6 +296,7 @@ declare namespace LocalJSX {
           * 间距方向，可选值为 `horizontal` `vertical`，默认为 `horizontal`
          */
         "direction"?: 'horizontal' | 'vertical';
+        "onWcClick"?: (event: WcSpaceCustomEvent<any>) => void;
         /**
           * 间距大小，可选值为 `mini` `small` `medium` `large` 或者具体的数值，默认为 `small`
          */
@@ -285,6 +307,7 @@ declare namespace LocalJSX {
         "wrap"?: boolean;
     }
     interface WcSpaceItem {
+        "onWcClick"?: (event: WcSpaceItemCustomEvent<any>) => void;
     }
     interface IntrinsicElements {
         "wc-button": WcButton;

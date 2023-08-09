@@ -1,4 +1,4 @@
-import { Component, h, Element, Fragment } from '@stencil/core';
+import { Component, h, Element, Fragment, Event, Listen, EventEmitter } from '@stencil/core';
 
 @Component({
     tag: 'wc-space-item',
@@ -10,6 +10,18 @@ export class SpaceItem {
      * 组件根元素
      */
     @Element() el: HTMLElement;
+
+    @Event({
+        eventName: 'wcClick',
+        composed: true,
+        cancelable: true,
+        bubbles: true
+    }) wcClick: EventEmitter;
+
+    @Listen('click', { capture: true })
+    handleClick(e: MouseEvent) {
+        this.wcClick.emit(e);
+    }
 
     render() {
         return (

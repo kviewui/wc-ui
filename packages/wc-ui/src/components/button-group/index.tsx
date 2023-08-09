@@ -1,5 +1,6 @@
-import { Component, h, Fragment, Element } from '@stencil/core';
+import { Component, h, Element, Prop, Host, Listen, Event, EventEmitter } from '@stencil/core';
 // import { getPresetColor } from '../../_utils/colors';
+// import type { ThemeType } from '../../types';
 
 @Component({
     tag: 'wc-button-group',
@@ -11,6 +12,24 @@ export class ButtonGroup {
      * 获取跟元素
      */
     @Element() el: HTMLElement;
+    
+
+    /**
+     * 按钮主题
+     */
+    @Prop() theme: any = '';
+
+    @Event({
+        eventName: 'wcClick',
+        composed: true,
+        cancelable: true,
+        bubbles: true
+    }) wcClick: EventEmitter;
+
+    @Listen('click', { capture: true })
+    handleClick(e: MouseEvent) {
+        this.wcClick.emit(e);
+    }
 
     /**
      * 设置默认样式
@@ -118,14 +137,13 @@ export class ButtonGroup {
 
     componentWillLoad() {
         console.log('wc-button-group');
-
     }
 
     render() {
         return (
-            <Fragment>
-               <slot />
-            </Fragment>
+            <Host>
+               <slot data-theme={this.theme} />
+            </Host>
         );
     }
 }

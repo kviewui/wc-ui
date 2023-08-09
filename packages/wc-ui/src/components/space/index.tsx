@@ -1,4 +1,4 @@
-import { Component, h, Element, Prop, Fragment } from '@stencil/core';
+import { Component, h, Element, Prop, Fragment, Event, EventEmitter, Listen } from '@stencil/core';
 import { isArray, parseStyle, convertHTMLCollectionToArray } from '../../_utils';
 import type * as CSS from 'csstype';
 
@@ -44,6 +44,18 @@ export class Space {
      * 组件根元素
      */
     @Element() el: HTMLElement;
+
+    @Event({
+        eventName: 'wcClick',
+        composed: true,
+        cancelable: true,
+        bubbles: true
+    }) wcClick: EventEmitter;
+
+    @Listen('click', { capture: true })
+    handleClick(e: MouseEvent) {
+        this.wcClick.emit(e);
+    }
 
     /**
      * 间距大小，可选值为 `mini` `small` `medium` `large` 或者具体的数值，默认为 `small`
