@@ -30,6 +30,9 @@
 </head>
 
 <body class="dark1">
+  <wc-teleport to="body">
+    <!-- <div class="modal">来自 modal 的内容</div> -->
+  </wc-teleport>
   <div class=" lwu-m-3">
     <h2>Button 按钮组件</h2>
   </div>
@@ -348,6 +351,55 @@
       </wc-space-item>
       <wc-space-item>
         <icon-refresh color="#333" rotate="180" spin />
+      </wc-space-item>
+    </wc-space>
+  </div>
+  <div class=" lwu-my-6 lwu-mx-3">
+    <h2>Link 链接组件</h2>
+  </div>
+  <div class=" lwu-m-3">
+    <h3 class=" lwu-mb-3">基础用法</h3>
+    <wc-space size="large">
+      <wc-space-item>
+        <wc-link>默认链接</wc-link>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-link disabled>默认链接</wc-link>
+      </wc-space-item>
+    </wc-space>
+  </div>
+  <div class=" lwu-m-3">
+    <h3 class=" lwu-mb-3">链接状态</h3>
+    <wc-space size="large">
+      <wc-space-item>
+        <wc-link>默认链接</wc-link>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-link disabled>默认链接</wc-link>
+      </wc-space-item>
+    </wc-space>
+    <wc-space size="large">
+      <wc-space-item>
+        <wc-link status="success">成功链接</wc-link>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-link status="success" disabled>成功链接</wc-link>
+      </wc-space-item>
+    </wc-space>
+    <wc-space size="large">
+      <wc-space-item>
+        <wc-link status="warning">警告链接</wc-link>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-link status="warning" disabled>警告链接</wc-link>
+      </wc-space-item>
+    </wc-space>
+    <wc-space size="large">
+      <wc-space-item>
+        <wc-link status="danger">危险链接</wc-link>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-link status="danger" disabled>危险链接</wc-link>
       </wc-space-item>
     </wc-space>
   </div>

@@ -90,6 +90,24 @@ export namespace Components {
     }
     interface WcIconFont {
     }
+    interface WcLink {
+        /**
+          * 是否在新窗口打开
+         */
+        "blank": boolean;
+        /**
+          * 链接是否禁用
+         */
+        "disabled": boolean;
+        /**
+          * 链接地址
+         */
+        "href": string;
+        /**
+          * 链接的状态
+         */
+        "status": 'default' | 'success' | 'warning' | 'danger';
+    }
     interface WcSpace {
         /**
           * 对齐方式，可选值为 `start` `end` `center` `baseline` `stretch`，默认为 `start`
@@ -123,6 +141,12 @@ export namespace Components {
         "wrap": boolean;
     }
     interface WcSpaceItem {
+    }
+    interface WcTeleport {
+        /**
+          * 传送的目标元素的选择器
+         */
+        "to": string;
     }
 }
 export interface WcButtonCustomEvent<T> extends CustomEvent<T> {
@@ -166,6 +190,12 @@ declare global {
         prototype: HTMLWcIconFontElement;
         new (): HTMLWcIconFontElement;
     };
+    interface HTMLWcLinkElement extends Components.WcLink, HTMLStencilElement {
+    }
+    var HTMLWcLinkElement: {
+        prototype: HTMLWcLinkElement;
+        new (): HTMLWcLinkElement;
+    };
     interface HTMLWcSpaceElement extends Components.WcSpace, HTMLStencilElement {
     }
     var HTMLWcSpaceElement: {
@@ -178,13 +208,21 @@ declare global {
         prototype: HTMLWcSpaceItemElement;
         new (): HTMLWcSpaceItemElement;
     };
+    interface HTMLWcTeleportElement extends Components.WcTeleport, HTMLStencilElement {
+    }
+    var HTMLWcTeleportElement: {
+        prototype: HTMLWcTeleportElement;
+        new (): HTMLWcTeleportElement;
+    };
     interface HTMLElementTagNameMap {
         "wc-button": HTMLWcButtonElement;
         "wc-button-group": HTMLWcButtonGroupElement;
         "wc-icon": HTMLWcIconElement;
         "wc-icon-font": HTMLWcIconFontElement;
+        "wc-link": HTMLWcLinkElement;
         "wc-space": HTMLWcSpaceElement;
         "wc-space-item": HTMLWcSpaceItemElement;
+        "wc-teleport": HTMLWcTeleportElement;
     }
 }
 declare namespace LocalJSX {
@@ -273,6 +311,24 @@ declare namespace LocalJSX {
     }
     interface WcIconFont {
     }
+    interface WcLink {
+        /**
+          * 是否在新窗口打开
+         */
+        "blank"?: boolean;
+        /**
+          * 链接是否禁用
+         */
+        "disabled"?: boolean;
+        /**
+          * 链接地址
+         */
+        "href"?: string;
+        /**
+          * 链接的状态
+         */
+        "status"?: 'default' | 'success' | 'warning' | 'danger';
+    }
     interface WcSpace {
         /**
           * 对齐方式，可选值为 `start` `end` `center` `baseline` `stretch`，默认为 `start`
@@ -309,13 +365,21 @@ declare namespace LocalJSX {
     interface WcSpaceItem {
         "onWcClick"?: (event: WcSpaceItemCustomEvent<any>) => void;
     }
+    interface WcTeleport {
+        /**
+          * 传送的目标元素的选择器
+         */
+        "to"?: string;
+    }
     interface IntrinsicElements {
         "wc-button": WcButton;
         "wc-button-group": WcButtonGroup;
         "wc-icon": WcIcon;
         "wc-icon-font": WcIconFont;
+        "wc-link": WcLink;
         "wc-space": WcSpace;
         "wc-space-item": WcSpaceItem;
+        "wc-teleport": WcTeleport;
     }
 }
 export { LocalJSX as JSX };
@@ -326,8 +390,10 @@ declare module "@stencil/core" {
             "wc-button-group": LocalJSX.WcButtonGroup & JSXBase.HTMLAttributes<HTMLWcButtonGroupElement>;
             "wc-icon": LocalJSX.WcIcon & JSXBase.HTMLAttributes<HTMLWcIconElement>;
             "wc-icon-font": LocalJSX.WcIconFont & JSXBase.HTMLAttributes<HTMLWcIconFontElement>;
+            "wc-link": LocalJSX.WcLink & JSXBase.HTMLAttributes<HTMLWcLinkElement>;
             "wc-space": LocalJSX.WcSpace & JSXBase.HTMLAttributes<HTMLWcSpaceElement>;
             "wc-space-item": LocalJSX.WcSpaceItem & JSXBase.HTMLAttributes<HTMLWcSpaceItemElement>;
+            "wc-teleport": LocalJSX.WcTeleport & JSXBase.HTMLAttributes<HTMLWcTeleportElement>;
         }
     }
 }
