@@ -70,6 +70,28 @@ export namespace Components {
          */
         "theme": any;
     }
+    interface WcDivider {
+        /**
+          * 方向，可选值为 horizontal 或 vertical， 默认为 horizontal
+         */
+        "direction": 'horizontal' | 'vertical';
+        /**
+          * 分割线宽度或者高度，单位 px
+         */
+        "size": number;
+        /**
+          * 分割线间距，水平方向时是上下间距，垂直方向时是左右间距，单位 px
+         */
+        "space": number;
+        /**
+          * 文字位置，可选值为 left 或 right 或 center， 默认为 center
+         */
+        "textPosition": 'left' | 'right' | 'center';
+        /**
+          * 分割线样式，可选值为 solid 或 dashed 或 dotted 或 double， 默认为 solid
+         */
+        "type": 'solid' | 'dashed' | 'dotted' | 'double';
+    }
     interface WcIcon {
         /**
           * 自定义类名
@@ -96,13 +118,29 @@ export namespace Components {
          */
         "blank": boolean;
         /**
+          * 是否为暗黑模式，默认为 `false`
+         */
+        "dark": false;
+        /**
           * 链接是否禁用
          */
         "disabled": boolean;
         /**
+          * 鼠标悬浮时是否存在底色，默认为 `true`
+         */
+        "hoverable": boolean;
+        /**
           * 链接地址
          */
         "href": string;
+        /**
+          * 是否使用图标，默认为 `false`
+         */
+        "icon": boolean;
+        /**
+          * 是否在加载中，默认为 `false`
+         */
+        "loading": boolean;
         /**
           * 链接的状态
          */
@@ -178,6 +216,12 @@ declare global {
         prototype: HTMLWcButtonGroupElement;
         new (): HTMLWcButtonGroupElement;
     };
+    interface HTMLWcDividerElement extends Components.WcDivider, HTMLStencilElement {
+    }
+    var HTMLWcDividerElement: {
+        prototype: HTMLWcDividerElement;
+        new (): HTMLWcDividerElement;
+    };
     interface HTMLWcIconElement extends Components.WcIcon, HTMLStencilElement {
     }
     var HTMLWcIconElement: {
@@ -217,6 +261,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "wc-button": HTMLWcButtonElement;
         "wc-button-group": HTMLWcButtonGroupElement;
+        "wc-divider": HTMLWcDividerElement;
         "wc-icon": HTMLWcIconElement;
         "wc-icon-font": HTMLWcIconFontElement;
         "wc-link": HTMLWcLinkElement;
@@ -291,6 +336,28 @@ declare namespace LocalJSX {
          */
         "theme"?: any;
     }
+    interface WcDivider {
+        /**
+          * 方向，可选值为 horizontal 或 vertical， 默认为 horizontal
+         */
+        "direction"?: 'horizontal' | 'vertical';
+        /**
+          * 分割线宽度或者高度，单位 px
+         */
+        "size"?: number;
+        /**
+          * 分割线间距，水平方向时是上下间距，垂直方向时是左右间距，单位 px
+         */
+        "space"?: number;
+        /**
+          * 文字位置，可选值为 left 或 right 或 center， 默认为 center
+         */
+        "textPosition"?: 'left' | 'right' | 'center';
+        /**
+          * 分割线样式，可选值为 solid 或 dashed 或 dotted 或 double， 默认为 solid
+         */
+        "type"?: 'solid' | 'dashed' | 'dotted' | 'double';
+    }
     interface WcIcon {
         /**
           * 自定义类名
@@ -317,13 +384,29 @@ declare namespace LocalJSX {
          */
         "blank"?: boolean;
         /**
+          * 是否为暗黑模式，默认为 `false`
+         */
+        "dark"?: false;
+        /**
           * 链接是否禁用
          */
         "disabled"?: boolean;
         /**
+          * 鼠标悬浮时是否存在底色，默认为 `true`
+         */
+        "hoverable"?: boolean;
+        /**
           * 链接地址
          */
         "href"?: string;
+        /**
+          * 是否使用图标，默认为 `false`
+         */
+        "icon"?: boolean;
+        /**
+          * 是否在加载中，默认为 `false`
+         */
+        "loading"?: boolean;
         /**
           * 链接的状态
          */
@@ -374,6 +457,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "wc-button": WcButton;
         "wc-button-group": WcButtonGroup;
+        "wc-divider": WcDivider;
         "wc-icon": WcIcon;
         "wc-icon-font": WcIconFont;
         "wc-link": WcLink;
@@ -388,6 +472,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "wc-button": LocalJSX.WcButton & JSXBase.HTMLAttributes<HTMLWcButtonElement>;
             "wc-button-group": LocalJSX.WcButtonGroup & JSXBase.HTMLAttributes<HTMLWcButtonGroupElement>;
+            "wc-divider": LocalJSX.WcDivider & JSXBase.HTMLAttributes<HTMLWcDividerElement>;
             "wc-icon": LocalJSX.WcIcon & JSXBase.HTMLAttributes<HTMLWcIconElement>;
             "wc-icon-font": LocalJSX.WcIconFont & JSXBase.HTMLAttributes<HTMLWcIconFontElement>;
             "wc-link": LocalJSX.WcLink & JSXBase.HTMLAttributes<HTMLWcLinkElement>;

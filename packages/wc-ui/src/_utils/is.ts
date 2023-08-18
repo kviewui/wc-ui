@@ -19,3 +19,10 @@ export function isStringArray(value: any): value is string | number[] {
 export function isArray(value: any): value is any[] {
     return Array.isArray(value);
 }
+
+/**
+ * 判断是否为数字
+ */
+export function isNumber(value: any): value is number {
+    return typeof value === 'number';
+}

@@ -7,6 +7,16 @@ import { getThemeColor } from '../../_utils';
 })
 export class WcLink {
     /**
+     * 是否使用了图标插槽
+     */
+    hasIconSlot: boolean;
+
+    /**
+     * 是否为暗黑模式，默认为 `false`
+     */
+    @Prop() dark: false;
+
+    /**
      * 链接地址 
      */
     @Prop() href: string;
@@ -26,23 +36,44 @@ export class WcLink {
      */
     @Prop() blank: boolean = false;
 
+    /**
+     * 鼠标悬浮时是否存在底色，默认为 `true`
+     */
+    @Prop() hoverable: boolean = true;
+
+    /**
+     * 是否使用图标，默认为 `false`
+     */
+    @Prop() icon: boolean = false;
+
+    /**
+     * 是否在加载中，默认为 `false`
+     */
+    @Prop() loading: boolean = false;
+
 
     @Element() el: HTMLElement;
 
     @State() hrefValue: string;
 
     @State() style: { [ket: string]: string } = {
+        display: 'inline-flex',
         color: getThemeColor(this.status === 'default' ? 'primary' : this.status),
         textDecoration: 'none',
         cursor: this.disabled ? 'not-allowed' : 'pointer',
-        opacity: this.disabled ? '0.5' : '1'
+        opacity: this.disabled ? '0.5' : '1',
+        backgroundColor: 'transparent',
+        padding: '8px 6px',
+        borderRadius: '3px',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        lineHeight: '0.8'
     };
 
-    @State() spanStyle: { [ket: string]: string } = {
-        display: 'inline-block',
-        padding: '1px 4px',
-        borderRadius: '3px',
-        backgroundColor: 'transparent'
+    @State() iconStyle: { [ket: string]: string } = {
+        marginRight: '4px',
+        verticalAlign: 'middle'
     };
 
     /**
@@ -58,16 +89,51 @@ export class WcLink {
      * 设置鼠标移入时的样式
      */
     onMouseEnter = () => {
+        if (this.disabled || !this.hoverable) {
+            return;
+        }
+        
+        this.style = {
+            ...this.style,
+            backgroundColor: this.dark ? '#2e2e30' : '#f2f3f5'
+        }
+    }
+
+    onMouseLeave = () => {
         if (this.disabled) {
             return;
         }
 
-        console.log(this.spanStyle);
-        
-        this.spanStyle.backgroundColor = 'red';
+        this.style = {
+            ...this.style,
+            backgroundColor: 'transparent'
+        }
+    }
+
+    setDisabledStyle() {
+        return {
+            ...this.style,
+            cursor: 'not-allowed',
+            opacity: '0.5'
+        }
+    }
+
+    setEnableStyle() {
+        return {
+            ...this.style,
+            cursor: 'pointer',
+            opacity: '1'
+        }
     }
 
     componentWillLoad() {
+        this.hasIconSlot = !!this.el.querySelector('[slot="icon"]');
+
+        if (this.loading) {
+            this.disabled = true;
+            this.style = this.setDisabledStyle();
+        }
+        
         if (this.disabled) {
             this.hrefValue = 'javascript:void(0);';
         }
@@ -75,13 +141,28 @@ export class WcLink {
         this.hrefValue = this.href;
     }
 
+    renderIcon() {
+        if (!this.hasIconSlot && !this.icon && !this.loading) {
+            return null;
+        }
+        return (
+            <span style={this.iconStyle}>
+                <slot name='icon'>
+                    {this.loading 
+                        ? <icon-loading spin color={getThemeColor(this.status === 'default' ? 'primary' : this.status)}></icon-loading> 
+                        : <icon-link color={getThemeColor(this.status === 'default' ? 'primary' : this.status)}></icon-link>
+                    }
+                </slot>
+            </span>
+        );
+    };
+
     render() {
         return (
             <Host>
-                <a href={this.hrefValue} target={this.blank ? '_blank' : '_self'} style={this.style} onMouseEnter={this.onMouseEnter}>
-                    <span style={this.spanStyle}>
-                        <slot></slot>
-                    </span>
+                <a href={this.hrefValue} target={this.blank ? '_blank' : '_self'} style={this.style} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
+                    {this.renderIcon()}
+                    <slot></slot>
                 </a>
             </Host>
         );

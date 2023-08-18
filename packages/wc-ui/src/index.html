@@ -403,6 +403,71 @@
       </wc-space-item>
     </wc-space>
   </div>
+  <div class=" lwu-m-3">
+    <h3>悬浮无底色</h3>
+    <wc-space size="large">
+      <wc-space-item>
+        <wc-link hoverable="false">默认链接</wc-link>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-link status="success" hoverable="false">默认链接</wc-link>
+      </wc-space-item>
+    </wc-space>
+  </div>
+  <div class=" lwu-m-3">
+    <h3>图标</h3>
+    <wc-space size="large">
+      <wc-space-item>
+        <wc-link icon>
+          默认链接
+        </wc-link>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-link status="success">
+          <span slot="icon">
+            <icon-add-circle />
+          </span>
+          默认链接
+        </wc-link>
+      </wc-space-item>
+    </wc-space>
+  </div>
+  <div class=" lwu-m-3">
+    <h3>加载中状态</h3>
+    <wc-space size="large">
+      <wc-space-item>
+        <wc-link loading>
+          默认链接
+        </wc-link>
+      </wc-space-item>
+      <wc-space-item>
+        <wc-link status="success">
+          <span slot="icon">
+            <icon-add-circle />
+          </span>
+          默认链接
+        </wc-link>
+      </wc-space-item>
+    </wc-space>
+  </div>
+  <div class=" lwu-my-6 lwu-mx-3">
+    <h2>Divider 分割线组件</h2>
+  </div>
+  <div class=" lwu-m-3">
+    <h3>基础用法</h3>
+    <h4>水平分割线</h4>
+    <div class=" lwu-w-96 lwu-mt-3">
+      <p>这是一段文字介绍，没有什么实际意义，只是用来作为展示而已。</p>
+      <wc-divider></wc-divider>
+      <p>这是一段文字介绍，没有什么实际意义，只是用来作为展示而已。</p>
+    </div>
+    <h4 class=" lwu-mt-3">垂直分割线</h4>
+    <div class=" lwu-flex">
+      <span>选项1</span>
+      <wc-divider direction="vertical"></wc-divider>
+      <span>选项2</span>
+    </div>
+  </div>
 </body>
 
 </html>
