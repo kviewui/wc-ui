@@ -136,7 +136,7 @@ export class ButtonGroup {
     }
 
     componentWillLoad() {
-        console.log('wc-button-group');
+        // console.log('wc-button-group');
     }
 
     render() {

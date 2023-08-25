@@ -5,9 +5,9 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ThemeType } from "./types";
+import { GridGutterType, ThemeType } from "./types";
 import { SpaceSize } from "./components/space/index";
-export { ThemeType } from "./types";
+export { GridGutterType, ThemeType } from "./types";
 export { SpaceSize } from "./components/space/index";
 export namespace Components {
     interface WcButton {
@@ -70,6 +70,70 @@ export namespace Components {
          */
         "theme": any;
     }
+    interface WcCol {
+        "gutter": GridGutterType | GridGutterType[];
+        "id": string;
+        /**
+          * 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @zh >= 992px 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @en >= 992px The number of columns occupied by the grid, responsive grid, can be the number of columns or an object containing other attributes
+         */
+        "lg": number | object;
+        /**
+          * 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @zh >= 768px 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @en >= 768px The number of columns occupied by the grid, responsive grid, can be the number of columns or an object containing other attributes
+         */
+        "md": number | object;
+        /**
+          * 栅格左侧的间隔格数，间隔内不可以有栅格
+          * @zh 栅格左侧的间隔格数，间隔内不可以有栅格
+          * @en The number of interval columns on the left side of the grid, and there can be no grid in the interval
+         */
+        "offset": number;
+        /**
+          * 栅格向左移动格数
+          * @zh 栅格向左移动格数
+          * @en The number of grid moves to the left
+         */
+        "pull": number;
+        /**
+          * 栅格向右移动格数
+          * @zh 栅格向右移动格数
+          * @en The number of grid moves to the right
+         */
+        "push": number;
+        /**
+          * 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @zh >= 576px 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @en >= 576px The number of columns occupied by the grid, responsive grid, can be the number of columns or an object containing other attributes
+         */
+        "sm": number | object;
+        /**
+          * 栅格占据的列数
+          * @zh 栅格占据的列数，24 栅格系统中的栅格占位格数，为 0 时相当于 display: none
+          * @en The number of columns occupied by the grid
+         */
+        "span": number;
+        /**
+          * 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @zh >= 1200px 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @en >= 1200px The number of columns occupied by the grid, responsive grid, can be the number of columns or an object containing other attributes
+         */
+        "xl": number | object;
+        /**
+          * 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @zh < 576px 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @en < 576px The number of columns occupied by the grid, responsive grid, can be the number of columns or an object containing other attributes
+         */
+        "xs": number | object;
+        /**
+          * 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @zh >= 1600px 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @en >= 1600px The number of columns occupied by the grid, responsive grid, can be the number of columns or an object containing other attributes
+         */
+        "xxl": number | object;
+    }
     interface WcDivider {
         /**
           * 方向，可选值为 horizontal 或 vertical， 默认为 horizontal
@@ -91,6 +155,13 @@ export namespace Components {
           * 分割线样式，可选值为 solid 或 dashed 或 dotted 或 double， 默认为 solid
          */
         "type": 'solid' | 'dashed' | 'dotted' | 'double';
+    }
+    interface WcGlobalStyle {
+        /**
+          * @zh 全局样式表路径
+          * @en the path of the global stylesheet
+         */
+        "src": string;
     }
     interface WcIcon {
         /**
@@ -146,6 +217,38 @@ export namespace Components {
          */
         "status": 'default' | 'success' | 'warning' | 'danger';
     }
+    interface WcRow {
+        /**
+          * 纵向排列，可选值为 `start` `end` `center` `stretch`
+          * @zh 纵向排列，可选值为 `start` `end` `center` `stretch`
+          * @en Vertical arrangement, optional values are `start` `end` `center` `stretch`
+         */
+        "align": 'start' | 'end' | 'center' | 'stretch';
+        /**
+          * 是否启用 flex 布局
+          * @zh 是否启用 flex 布局
+          * @en Whether to enable flex layout
+         */
+        "flex": boolean;
+        /**
+          * 栅格间隔，支持响应式，可为栅格数或一个包含其他属性的对象，如：{ xs: 8, sm: 16, md: 24 } + 数字：间隔为 0 时相当于 display: none + 数组：[水平间隔, 垂直间隔]，如：[8, 16] + 对象：{ xs: 数字, sm: 数字, md: 数字 }，如：{ xs: 8, sm: 16, md: 24 } + 响应式：{ xs: 数字 | 数组, sm: 数字 | 数组, md: 数字 | 数组 }
+          * @zh 栅格间隔，支持响应式，可为栅格数或一个包含其他属性的对象，如：{ xs: 8, sm: 16, md: 24 }
+          * @en Grid interval, support responsive, can be the number of columns or an object containing other attributes, such as: { xs: 8, sm: 16, md: 24 }
+         */
+        "gutter": GridGutterType | GridGutterType[];
+        /**
+          * flex 布局下的垂直对齐方式，可选值为 `start` `end` `center` `space-around` `space-between`
+          * @zh flex 布局下的垂直对齐方式，可选值为 `start` `end` `center` `space-around` `space-between`
+          * @en Vertical alignment in flex layout, optional values are `start` `end` `center` `space-around` `space-between`
+         */
+        "justify": 'start' | 'end' | 'center' | 'space-around' | 'space-between';
+        /**
+          * `Col` 是否自动换行
+          * @zh `Col` 是否自动换行
+          * @en Whether `Col` wraps automatically
+         */
+        "wrap": boolean;
+    }
     interface WcSpace {
         /**
           * 对齐方式，可选值为 `start` `end` `center` `baseline` `stretch`，默认为 `start`
@@ -169,6 +272,12 @@ export namespace Components {
           * 间距方向，可选值为 `horizontal` `vertical`，默认为 `horizontal`
          */
         "direction": 'horizontal' | 'vertical';
+        /**
+          * 全局样式表路径
+          * @zh 全局样式表路径
+          * @en the path of the global stylesheet
+         */
+        "globalStyleSrc": string;
         /**
           * 间距大小，可选值为 `mini` `small` `medium` `large` 或者具体的数值，默认为 `small`
          */
@@ -216,11 +325,23 @@ declare global {
         prototype: HTMLWcButtonGroupElement;
         new (): HTMLWcButtonGroupElement;
     };
+    interface HTMLWcColElement extends Components.WcCol, HTMLStencilElement {
+    }
+    var HTMLWcColElement: {
+        prototype: HTMLWcColElement;
+        new (): HTMLWcColElement;
+    };
     interface HTMLWcDividerElement extends Components.WcDivider, HTMLStencilElement {
     }
     var HTMLWcDividerElement: {
         prototype: HTMLWcDividerElement;
         new (): HTMLWcDividerElement;
+    };
+    interface HTMLWcGlobalStyleElement extends Components.WcGlobalStyle, HTMLStencilElement {
+    }
+    var HTMLWcGlobalStyleElement: {
+        prototype: HTMLWcGlobalStyleElement;
+        new (): HTMLWcGlobalStyleElement;
     };
     interface HTMLWcIconElement extends Components.WcIcon, HTMLStencilElement {
     }
@@ -239,6 +360,12 @@ declare global {
     var HTMLWcLinkElement: {
         prototype: HTMLWcLinkElement;
         new (): HTMLWcLinkElement;
+    };
+    interface HTMLWcRowElement extends Components.WcRow, HTMLStencilElement {
+    }
+    var HTMLWcRowElement: {
+        prototype: HTMLWcRowElement;
+        new (): HTMLWcRowElement;
     };
     interface HTMLWcSpaceElement extends Components.WcSpace, HTMLStencilElement {
     }
@@ -261,10 +388,13 @@ declare global {
     interface HTMLElementTagNameMap {
         "wc-button": HTMLWcButtonElement;
         "wc-button-group": HTMLWcButtonGroupElement;
+        "wc-col": HTMLWcColElement;
         "wc-divider": HTMLWcDividerElement;
+        "wc-global-style": HTMLWcGlobalStyleElement;
         "wc-icon": HTMLWcIconElement;
         "wc-icon-font": HTMLWcIconFontElement;
         "wc-link": HTMLWcLinkElement;
+        "wc-row": HTMLWcRowElement;
         "wc-space": HTMLWcSpaceElement;
         "wc-space-item": HTMLWcSpaceItemElement;
         "wc-teleport": HTMLWcTeleportElement;
@@ -336,6 +466,70 @@ declare namespace LocalJSX {
          */
         "theme"?: any;
     }
+    interface WcCol {
+        "gutter"?: GridGutterType | GridGutterType[];
+        "id"?: string;
+        /**
+          * 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @zh >= 992px 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @en >= 992px The number of columns occupied by the grid, responsive grid, can be the number of columns or an object containing other attributes
+         */
+        "lg"?: number | object;
+        /**
+          * 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @zh >= 768px 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @en >= 768px The number of columns occupied by the grid, responsive grid, can be the number of columns or an object containing other attributes
+         */
+        "md"?: number | object;
+        /**
+          * 栅格左侧的间隔格数，间隔内不可以有栅格
+          * @zh 栅格左侧的间隔格数，间隔内不可以有栅格
+          * @en The number of interval columns on the left side of the grid, and there can be no grid in the interval
+         */
+        "offset"?: number;
+        /**
+          * 栅格向左移动格数
+          * @zh 栅格向左移动格数
+          * @en The number of grid moves to the left
+         */
+        "pull"?: number;
+        /**
+          * 栅格向右移动格数
+          * @zh 栅格向右移动格数
+          * @en The number of grid moves to the right
+         */
+        "push"?: number;
+        /**
+          * 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @zh >= 576px 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @en >= 576px The number of columns occupied by the grid, responsive grid, can be the number of columns or an object containing other attributes
+         */
+        "sm"?: number | object;
+        /**
+          * 栅格占据的列数
+          * @zh 栅格占据的列数，24 栅格系统中的栅格占位格数，为 0 时相当于 display: none
+          * @en The number of columns occupied by the grid
+         */
+        "span"?: number;
+        /**
+          * 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @zh >= 1200px 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @en >= 1200px The number of columns occupied by the grid, responsive grid, can be the number of columns or an object containing other attributes
+         */
+        "xl"?: number | object;
+        /**
+          * 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @zh < 576px 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @en < 576px The number of columns occupied by the grid, responsive grid, can be the number of columns or an object containing other attributes
+         */
+        "xs"?: number | object;
+        /**
+          * 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @zh >= 1600px 栅格占据的列数，响应式栅格，可为栅格数或一个包含其他属性的对象
+          * @en >= 1600px The number of columns occupied by the grid, responsive grid, can be the number of columns or an object containing other attributes
+         */
+        "xxl"?: number | object;
+    }
     interface WcDivider {
         /**
           * 方向，可选值为 horizontal 或 vertical， 默认为 horizontal
@@ -357,6 +551,13 @@ declare namespace LocalJSX {
           * 分割线样式，可选值为 solid 或 dashed 或 dotted 或 double， 默认为 solid
          */
         "type"?: 'solid' | 'dashed' | 'dotted' | 'double';
+    }
+    interface WcGlobalStyle {
+        /**
+          * @zh 全局样式表路径
+          * @en the path of the global stylesheet
+         */
+        "src"?: string;
     }
     interface WcIcon {
         /**
@@ -412,6 +613,38 @@ declare namespace LocalJSX {
          */
         "status"?: 'default' | 'success' | 'warning' | 'danger';
     }
+    interface WcRow {
+        /**
+          * 纵向排列，可选值为 `start` `end` `center` `stretch`
+          * @zh 纵向排列，可选值为 `start` `end` `center` `stretch`
+          * @en Vertical arrangement, optional values are `start` `end` `center` `stretch`
+         */
+        "align"?: 'start' | 'end' | 'center' | 'stretch';
+        /**
+          * 是否启用 flex 布局
+          * @zh 是否启用 flex 布局
+          * @en Whether to enable flex layout
+         */
+        "flex"?: boolean;
+        /**
+          * 栅格间隔，支持响应式，可为栅格数或一个包含其他属性的对象，如：{ xs: 8, sm: 16, md: 24 } + 数字：间隔为 0 时相当于 display: none + 数组：[水平间隔, 垂直间隔]，如：[8, 16] + 对象：{ xs: 数字, sm: 数字, md: 数字 }，如：{ xs: 8, sm: 16, md: 24 } + 响应式：{ xs: 数字 | 数组, sm: 数字 | 数组, md: 数字 | 数组 }
+          * @zh 栅格间隔，支持响应式，可为栅格数或一个包含其他属性的对象，如：{ xs: 8, sm: 16, md: 24 }
+          * @en Grid interval, support responsive, can be the number of columns or an object containing other attributes, such as: { xs: 8, sm: 16, md: 24 }
+         */
+        "gutter"?: GridGutterType | GridGutterType[];
+        /**
+          * flex 布局下的垂直对齐方式，可选值为 `start` `end` `center` `space-around` `space-between`
+          * @zh flex 布局下的垂直对齐方式，可选值为 `start` `end` `center` `space-around` `space-between`
+          * @en Vertical alignment in flex layout, optional values are `start` `end` `center` `space-around` `space-between`
+         */
+        "justify"?: 'start' | 'end' | 'center' | 'space-around' | 'space-between';
+        /**
+          * `Col` 是否自动换行
+          * @zh `Col` 是否自动换行
+          * @en Whether `Col` wraps automatically
+         */
+        "wrap"?: boolean;
+    }
     interface WcSpace {
         /**
           * 对齐方式，可选值为 `start` `end` `center` `baseline` `stretch`，默认为 `start`
@@ -435,6 +668,12 @@ declare namespace LocalJSX {
           * 间距方向，可选值为 `horizontal` `vertical`，默认为 `horizontal`
          */
         "direction"?: 'horizontal' | 'vertical';
+        /**
+          * 全局样式表路径
+          * @zh 全局样式表路径
+          * @en the path of the global stylesheet
+         */
+        "globalStyleSrc"?: string;
         "onWcClick"?: (event: WcSpaceCustomEvent<any>) => void;
         /**
           * 间距大小，可选值为 `mini` `small` `medium` `large` 或者具体的数值，默认为 `small`
@@ -457,10 +696,13 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "wc-button": WcButton;
         "wc-button-group": WcButtonGroup;
+        "wc-col": WcCol;
         "wc-divider": WcDivider;
+        "wc-global-style": WcGlobalStyle;
         "wc-icon": WcIcon;
         "wc-icon-font": WcIconFont;
         "wc-link": WcLink;
+        "wc-row": WcRow;
         "wc-space": WcSpace;
         "wc-space-item": WcSpaceItem;
         "wc-teleport": WcTeleport;
@@ -472,10 +714,13 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "wc-button": LocalJSX.WcButton & JSXBase.HTMLAttributes<HTMLWcButtonElement>;
             "wc-button-group": LocalJSX.WcButtonGroup & JSXBase.HTMLAttributes<HTMLWcButtonGroupElement>;
+            "wc-col": LocalJSX.WcCol & JSXBase.HTMLAttributes<HTMLWcColElement>;
             "wc-divider": LocalJSX.WcDivider & JSXBase.HTMLAttributes<HTMLWcDividerElement>;
+            "wc-global-style": LocalJSX.WcGlobalStyle & JSXBase.HTMLAttributes<HTMLWcGlobalStyleElement>;
             "wc-icon": LocalJSX.WcIcon & JSXBase.HTMLAttributes<HTMLWcIconElement>;
             "wc-icon-font": LocalJSX.WcIconFont & JSXBase.HTMLAttributes<HTMLWcIconFontElement>;
             "wc-link": LocalJSX.WcLink & JSXBase.HTMLAttributes<HTMLWcLinkElement>;
+            "wc-row": LocalJSX.WcRow & JSXBase.HTMLAttributes<HTMLWcRowElement>;
             "wc-space": LocalJSX.WcSpace & JSXBase.HTMLAttributes<HTMLWcSpaceElement>;
             "wc-space-item": LocalJSX.WcSpaceItem & JSXBase.HTMLAttributes<HTMLWcSpaceItemElement>;
             "wc-teleport": LocalJSX.WcTeleport & JSXBase.HTMLAttributes<HTMLWcTeleportElement>;

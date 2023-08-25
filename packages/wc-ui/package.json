@@ -33,6 +33,7 @@
   "devDependencies": {
     "@kviewui/color-builder": "^1.0.5",
     "@stencil/state-tunnel": "^1.0.1",
+    "@stencil/store": "^2.0.9",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.11",
     "csstype": "^3.1.2",

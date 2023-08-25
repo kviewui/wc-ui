@@ -56,12 +56,14 @@ export class WcLink {
 
     @State() hrefValue: string;
 
+    @State() clickable: boolean = this.disabled;
+
     @State() style: { [ket: string]: string } = {
         display: 'inline-flex',
         color: getThemeColor(this.status === 'default' ? 'primary' : this.status),
         textDecoration: 'none',
-        cursor: this.disabled ? 'not-allowed' : 'pointer',
-        opacity: this.disabled ? '0.5' : '1',
+        cursor: this.clickable ? 'not-allowed' : 'pointer',
+        opacity: this.clickable ? '0.5' : '1',
         backgroundColor: 'transparent',
         padding: '8px 6px',
         borderRadius: '3px',
@@ -89,7 +91,7 @@ export class WcLink {
      * 设置鼠标移入时的样式
      */
     onMouseEnter = () => {
-        if (this.disabled || !this.hoverable) {
+        if (this.clickable || !this.hoverable) {
             return;
         }
         
@@ -100,7 +102,7 @@ export class WcLink {
     }
 
     onMouseLeave = () => {
-        if (this.disabled) {
+        if (this.clickable || !this.hoverable) {
             return;
         }
 
@@ -130,7 +132,7 @@ export class WcLink {
         this.hasIconSlot = !!this.el.querySelector('[slot="icon"]');
 
         if (this.loading) {
-            this.disabled = true;
+            this.clickable = true;
             this.style = this.setDisabledStyle();
         }
         

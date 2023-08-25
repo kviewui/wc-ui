@@ -1,14 +1,14 @@
 import { Component, h, Element, Prop, Fragment, Event, EventEmitter, Listen } from '@stencil/core';
-import { isArray, parseStyle, convertHTMLCollectionToArray } from '../../_utils';
+import { isArray, isStringArray, parseStyle, convertHTMLCollectionToArray, isNumber } from '../../_utils';
 import type * as CSS from 'csstype';
 
 export type SpaceSize = 'mini' | 'small' | 'medium' | 'large' | number;
 
 const getMargin = (size: SpaceSize) => {
-    const numberSize = Number(size);
+    // const numberSize = Number(size);
 
-    if (typeof numberSize === 'number' && !isNaN(numberSize)) {
-        return size;
+    if (isNumber(size)) {
+        return Number(size) / 2;
     }
     switch (size) {
         case 'mini':
@@ -95,6 +95,13 @@ export class Space {
     } | string = {};
 
     /**
+     * 全局样式表路径
+     * @zh 全局样式表路径
+     * @en the path of the global stylesheet
+     */
+    @Prop() globalStyleSrc: string;
+
+    /**
      * 间距样式 
      * @param isLast - 是否为最后一个元素 
      * @returns 
@@ -103,16 +110,22 @@ export class Space {
     getMarginStyle = (isLast: boolean): any => {
         const style: CSS.Properties = {};
 
+        const _size = isArray(this.size) 
+            ? this.size 
+            : isStringArray(this.size) 
+                ? JSON.parse(this.size) 
+                : this.size;
+
         const marginRight = `${getMargin(
-            isArray(this.size) ? this.size[0] : this.size 
+            isArray(_size) ? _size[0] : _size
         )}px`;
 
         const marginBottom = `${getMargin(
-            isArray(this.size) ? this.size[1] : this.size
+            isArray(_size) ? _size[1] : _size
         )}px`;
 
         if (isLast) {
-           return this.wrap ? { marginBottom } : { };
+            return this.wrap ? { marginBottom } : {};
         }
 
         if (this.direction === 'horizontal') {
@@ -149,8 +162,6 @@ export class Space {
             style.alignItems = this.align;
         }
 
-        console.log(this.customStyle)
-
         return {
             ...style,
             ...parseStyle(this.customStyle as string),
@@ -161,31 +172,25 @@ export class Space {
     componentWillLoad() {
         // 检查是否有分隔符
         this.hasSplitSlot = !!this.el.querySelector('[slot="split"]');
-
-        console.log(this.hasSplitSlot)
-        console.log(this.customStyle)
-
-        // console.log(convertHTMLCollectionToArray(this.el.children));
-        // console.log(this.el.querySelectorAll('wc-space-item'));
     }
 
     componentDidLoad() {
-        
+
     }
 
     render() {
         return (
             <div style={this.getHostStyle() as any} class="wc-space">
+                <link rel="stylesheet" href={this.globalStyleSrc} />
                 {
-                    Array.prototype.map.call(convertHTMLCollectionToArray(this.el.children), (child: { innerHTML: string; length: number; }, index: number) => {
+                    Array.prototype.map.call(convertHTMLCollectionToArray(this.el.children), (child, index: number) => {
                         const shouldAddSplit = this.hasSplitSlot && index > 0;
-                        console.log(shouldAddSplit, 'shouldAddSplit');
-                        console.log(child);
+
                         return (<Fragment>
                             {shouldAddSplit && (
                                 <span style={this.getMarginStyle(false)} class="wc-space__split" innerHTML={this.el.querySelector('[slot="split"]').innerHTML} />
                             )}
-                            <span style={this.getMarginStyle(index === child.length - 1)} innerHTML={child.innerHTML} />
+                            <div style={this.getMarginStyle(index === child.length - 1)} ref={el => el.appendChild(child)}></div>
                         </Fragment>);
                     })
                 }

@@ -24,5 +24,5 @@ export function isArray(value: any): value is any[] {
  * 判断是否为数字
  */
 export function isNumber(value: any): value is number {
-    return typeof value === 'number';
+    return typeof value === 'number' || (typeof Number(value) === 'number' && !isNaN(Number(value)));
 }

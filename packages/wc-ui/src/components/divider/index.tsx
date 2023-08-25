@@ -1,4 +1,4 @@
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, Prop, State, Element } from '@stencil/core';
 import { isNumber } from '../../_utils/is';
 
 const getMargin = (margin: number | string) => {
@@ -10,6 +10,11 @@ const getMargin = (margin: number | string) => {
     shadow: true
 })
 export class WcDivider {
+    /**
+     * 是否使用了默认插槽
+     */
+    hasDefaultSlot: boolean = false;
+
     /**
      * 方向，可选值为 horizontal 或 vertical， 默认为 horizontal
      */
@@ -36,6 +41,11 @@ export class WcDivider {
     @Prop() space: number = 8;
 
     /**
+     * 元素根节点
+     */
+    @Element() $el: HTMLElement;
+
+    /**
      * 初始化样式
      */
     @State() style: any = {
@@ -48,9 +58,9 @@ export class WcDivider {
      * 水平分割线样式
      */
     @State() horizontalStyle: any = {
-        height: `${this.size}px`,
+        // height: `${this.size}px`,
         margin: `${getMargin(this.space)} 0`,
-        overflow: 'hidden',
+        // overflow: 'hidden',
         background: 'transparent',
         border: 'none',
         borderBottomColor: '#e8e8e8',
@@ -64,7 +74,7 @@ export class WcDivider {
     @State() verticalStyle: any = {
         width: `${this.size}px`,
         height: '100%',
-        margin: `0 ${getMargin(this.space)}px`,
+        margin: `0 ${getMargin(this.space)}`,
         overflow: 'hidden',
         background: 'transparent',
         border: 'none',
@@ -90,14 +100,75 @@ export class WcDivider {
         }
     };
 
+    /**
+     * 文字样式
+     */
+    @State() textStyle: any = {
+        position: 'absolute',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        padding: '0 8px',
+        background: '#fff',
+        // color: '#999',
+        fontSize: '12px',
+        lineHeight: '1'
+    };
+
+    /**
+     * 文本居左或者局右时的位置
+     */
+    textNotCenterPosition: number = 24;
+
+    /**
+     * 合并文字样式
+     */
+    @State() mergeTextStyle: any = () => {
+        if (this.textPosition === 'left') {
+            this.textStyle = {
+                ...this.textStyle,
+                left: `${this.textNotCenterPosition}px`
+            }
+        } else if (this.textPosition === 'right') {
+            this.textStyle = {
+                ...this.textStyle,
+                right: `${this.textNotCenterPosition}px`
+            }
+        } else {
+            this.textStyle = {
+                ...this.textStyle,
+                left: '50%',
+                transform: 'translateX(-50%) translateY(-50%)'
+            }
+        }
+    };
+
+    /**
+     * 渲染文字
+     */
+    @State() renderText: any = () => {
+        // return (
+        //     <span style={this.textStyle}>文本信息</span>
+        // )
+        if (this.hasDefaultSlot) {
+            return (
+                <span style={this.textStyle}><slot></slot></span>
+            )
+        }
+    };
+
     componentWillLoad() {
+        this.hasDefaultSlot = !!this.$el.childNodes.length;
+
         this.mergeStyle();
+
+        this.mergeTextStyle();
     }
 
     render() {
         return (
             <div role='separator' class="divider" style={this.style}>
                {/* 111 */}
+                {this.renderText()}
             </div>
         );
     }

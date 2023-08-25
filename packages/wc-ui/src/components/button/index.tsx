@@ -361,7 +361,6 @@ export class Button {
         this.hasIconSlot = !!this.el.querySelector('[slot="icon"]');
         this.hasDefaultSlot = !!this.el.querySelector('[slot="default"]');
         // console.log('wc-button componentWillLoad');
-        console.log('themeValue', this.themeValue);
 
         this.setVariantStyle();
 

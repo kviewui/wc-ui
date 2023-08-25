@@ -1,4 +1,4 @@
-import { Component, h, Element, Fragment, Event, Listen, EventEmitter } from '@stencil/core';
+import { Component, h, Element, Host, Event, Listen, EventEmitter } from '@stencil/core';
 
 @Component({
     tag: 'wc-space-item',
@@ -25,9 +25,9 @@ export class SpaceItem {
 
     render() {
         return (
-            <Fragment>
+            <Host>
                 <slot></slot>
-            </Fragment>
+            </Host>
         );
     }
 }
